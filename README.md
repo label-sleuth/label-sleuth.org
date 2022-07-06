@@ -1,2 +1,3 @@
 # label-sleuth.org
-The official web-site of Label Sleuth
+
+The official website of Label Sleuth.
