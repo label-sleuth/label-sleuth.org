@@ -1,0 +1,60 @@
+name: Publish Docs
+
+permissions:
+  id-token: write
+  pages: write
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd docs
+        pip install -r requirements.txt
+    - name: Show contents of working dir
+      working-directory: ./docs
+      run: |
+        ls -la $PWD
+    - name: Build sphinx documentation
+      working-directory: ./docs
+      run: |
+        make html
+        cd _build/html
+        touch .nojekyll
+    - name: Copy CNAME
+      working-directory: ./docs
+      run: |
+        cp CNAME _build/html
+    - name: Create documentation artifact
+      working-directory: ./docs
+      run: |
+        tar --dereference --hard-dereference --exclude=.git -cvf artifact.tar -C _build/html .
+    - name: 'Upload artifact'
+      uses: actions/upload-artifact@v3
+      with:
+        name: github-pages
+        path: docs/artifact.tar
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+    - name: Publish on GitHub pages
+      uses: actions/deploy-pages@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
