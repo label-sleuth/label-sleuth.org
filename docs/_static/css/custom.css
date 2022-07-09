@@ -367,26 +367,24 @@ body{
 }
 
 .homepage-video-container {
+  overflow: hidden;
+  position: relative;
   max-width: 700px;
-  height: 394px;
-  background-color: white;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 394px;
   margin: 0 auto;
+}
+
+.homepage-video-container:after {
+  padding-top: 55.3%;
+  display: block;
+  content: '';
 }
 
 #homepage-video-iframe {
-  margin: 0 auto;
-}
-
-#homepage-video-placeholder {
-  background-color: white;
-  color: #525252;
-  letter-spacing: 0;
-  font-size: 18px;
-  line-height: 24px;
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .homepage-carousel-row {
