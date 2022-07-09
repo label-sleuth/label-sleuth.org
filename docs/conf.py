@@ -45,7 +45,7 @@ extensions = [
 myst_enable_extensions = ["colon_fence"]
 
 # Add no prefix to resource URLs for 404 page
-notfound_urls_prefix = '/sleuth/label-sleuth-documentation/'
+notfound_urls_prefix = ''
 
 # Automatically create header anchors for h1, h2, and h3 level headings
 myst_heading_anchors = 3
