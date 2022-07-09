@@ -1,0 +1,386 @@
+{%- extends "layout.html" %}
+
+{%- block docs_sidebar %}
+{% endblock %}
+
+{%- block extrahead %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+{% block docs_navbar %}
+<nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+   {%- include "sections/header.html" %}
+</nav>
+{% endblock %}
+
+<div class="jumbotron jumbotron-fluid homepage-jumbotron">
+   <div class="container jumbotron-container">
+      <img class="homepage-jumbotron-logo" src="_static/images/homepage/logo_white_invert.svg" alt="Label Sleuth">
+      <ul class="homepage-jumbotron-highlights">
+         <li>An open-source <b>no-code</b> system for text annotation and building text classifiers</li>
+         <li>No AI knowledge needed</li>
+         <li>From task definition to working model in just a few hours!</li>
+      </ul>
+      <div class="homepage-jumbotron-nextsteps">
+         <div class="homepage-getstarted-button" onclick="location.href='#getstarted';">
+            <a href="#getstarted">Create your model now!</a>
+            <img class="homepage-getstarted-chevron" src="_static/images/homepage/chevron_right.png" alt=">">
+         </div>
+         <div class="homepage-watch-video">
+            <img class="homepage-watch-video-icon" src="_static/images/homepage/watch_video.svg" alt="Watch video">
+            <div class="homepage-watch-video-text">
+               <a href="#watchvideo">Watch video</a>
+            </div>
+         </div>
+      </div>
+
+      <!--
+         <div style="border-radius: 6px; background: rgba(255, 255, 255, 0.15); width: 133px; padding-top: 10px; padding-bottom: 10px; margin-top: 45px; text-align: left;">
+            <img src="_static/images/homepage/github_icon.png" style="width: 21px; height: 21px; display: inline-block; margin: auto 0; margin-left: 10px" alt="GitHub icon">
+            <p style="display: inline-block; margin: auto 0; margin-left: 6px; color: #ffffff">GitHub</p>
+         </div> -->
+
+   </div>
+</div>
+
+<div class="container-fluid homepage-section-light">
+
+   <div class="container homepage-section-header">
+      <p class="col text-center">Real world NLP models made easy</p>
+   </div>
+
+   <div class="container" style="padding-top: 20px; padding-bottom: 0px;  ">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="8000">
+         <div class="carousel-inner">
+            <div class="carousel-item active">
+               <div class="row homepage-carousel-row">
+                  <div class="card mb-3 mx-auto homepage-feature-card">
+                     <div class="row no-gutters">
+                        <div class="col-md-4">
+                           <div class="card-body homepage-feature-description">
+                              <h5 class="card-title homepage-feature-description-title">Quickly label through intuitive
+                                 UI</h5>
+                              <p class="card-text homepage-feature-description-body">Domain experts can quickly start
+                                 labeling their data through an intuitive user interface.</p>
+                           </div>
+                        </div>
+                        <div class="col-md-8">
+                           <img width="505"  height="181" src="_static/images/homepage/labeling.png" class="card-img homepage-carousel-card-img" alt="Labeling">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="carousel-item">
+               <div class="row homepage-carousel-row">
+                  <div class="card mb-3 mx-auto homepage-feature-card">
+                     <div class="row no-gutters">
+                        <div class="col-md-4">
+                           <div class="card-body homepage-feature-description">
+                              <h5 class="card-title homepage-feature-description-title">Integrated model training</h5>
+                              <p class="card-text homepage-feature-description-body">While domain experts label their
+                                 data, Label Sleuth automatically trains in the background appropriate machine learning
+                                 models.</p>
+                           </div>
+                        </div>
+                        <div class="col-md-8">
+                           <img  width="505"  height="181" src="_static/images/homepage/model_training.png" class="card-img homepage-carousel-card-img" alt="Model training">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="carousel-item">
+               <div class="row homepage-carousel-row">
+                  <div class="card mb-3 mx-auto homepage-feature-card">
+                     <div class="row no-gutters">
+                        <div class="col-md-4">
+                           <div class="card-body homepage-feature-description">
+                              <h5 class="card-title homepage-feature-description-title">Active-learning-driven labeling
+                                 assistance</h5>
+                              <p class="card-text homepage-feature-description-body">To avoid wasted labeling effort,
+                                 Label Sleuth employs active learning techniques to guide the user in what they should
+                                 be labeling next.</p>
+                           </div>
+                        </div>
+                        <div class="col-md-8">
+                           <img  width="505"  height="181" src="_static/images/homepage/active_learning.png" class="card-img homepage-carousel-card-img"
+                              alt="Active learning">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+         </ol>
+         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+         </a>
+         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+         </a>
+      </div>
+   </div>
+
+</div>
+
+<div class="container-fluid homepage-section-dark">
+   <a name="watchvideo"></a>
+
+   <div class="container homepage-section-header">
+      <p class="col text-center">From task definition to working model in just a few hours</p>
+   </div>
+
+
+   <div class="row" style="padding-bottom: 60px">
+      <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+         <div class="homepage-video-container">
+            <p id="homepage-video-placeholder">Check back soon for a video of Label Sleuth</p>
+            <iframe title="Label Sleuth Video"
+               src="https://www.youtube.com/embed/Q8xtSOEwpeI?controls=1&modestbranding=1&rel=0"
+               id="homepage-video-iframe" width="100%" height="100%" frameborder="0" allowfullscreen
+               crossorigin="anonymous"></iframe>
+            <script type="text/javascript">
+               var videoPlaceholder = document.getElementById("homepage-video-placeholder");
+               var videoIframe = document.getElementById("homepage-video-iframe");
+
+               var urlStr = window.location.href;
+               var url = new URL(urlStr);
+               var videoParam = url.searchParams.get("video");
+               if (videoParam == "1") {
+                  console.log("video");
+                  videoPlaceholder.style.display = "none";
+               } else {
+                  videoIframe.style.display = "none";
+               }
+            </script>
+         </div>
+      </div>
+   </div>
+
+</div>
+
+<div class="container-fluid homepage-section-light">
+   <div class="row homepage-quote-container">
+      <div class="card mb-3 mx-auto homepage-quote-card">
+         <div class="row no-gutters">
+            <div class="col-3 col-sm-2 col-md-1 homepage-quote-image">
+               <img src="_static/images/homepage/logo_round.svg" class="card-img" alt="Label Sleuth logo">
+            </div>
+            <div class="col-9 col-sm-10 col-md-11">
+               <p class="homepage-quote">"Anyone can take advantage of Label Sleuth to quickly annotate high-quality text
+                  datasets at a cost lower than ever before."</p>
+               <p class="homepage-quote-person"><b>Toby Li,</b> University of Notre Dame</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="container-fluid homepage-section-dark suggestion-container">
+   <div class="container" style="padding-top: 60px; padding-bottom: 60px; max-width: 1000px;">
+      <div class="row">
+         <div class="card-deck suggestion-card-deck">
+            <div class="card homepage-rounded-card suggestion-card">
+               <div class="card-body d-flex flex-column suggestion-card-body">
+                  <img src="_static/images/homepage/box1_icon.png" alt="Research icon"
+                     style="width: 69px; margin-bottom: 30px;">
+                  <p class="card-title homepage-text-bold" style="margin-top: 10px; font-weight: 600;">Developed by the
+                     research community</p>
+                  <p class="card-text homepage-text-muted suggestion-text">Developed by researchers across industry and academia, Label
+                     Sleuth incorporates latest research from human computer interaction, natural language processing,
+                     and artificial intelligence.</p>
+                  <a href="publications.html" class="btn btn-primary mt-auto stretched-link homepage-button">Read the
+                     publications</a>
+               </div>
+            </div>
+            <div class="card homepage-rounded-card suggestion-card">
+               <div class="card-body d-flex flex-column suggestion-card-body">
+                  <img src="_static/images/homepage/box2_icon.png" alt="Extensible architecture icon"
+                     style="width: 71px; margin-bottom: 28px;">
+                  <p class="card-title homepage-text-bold" style="margin-top: 10px; font-weight: 600;">Extensible
+                        architecture</p>
+                  <p class="card-text homepage-text-muted  suggestion-text">Label Sleuth has been designed with an extensible
+                        architecture allowing the easy integration of new components, such as additional model
+                        architectures or active learning techniques.</p>
+                  <a href="docs/dev/architecture.html"
+                        class="btn btn-primary mt-auto stretched-link homepage-button">System architecture</a>
+               </div>
+            </div>
+            <div class="card homepage-rounded-card suggestion-card">
+               <div class="card-body d-flex flex-column suggestion-card-body">
+                  <img src="_static/images/homepage/box3_icon.png" alt="Extensible architecture icon"
+                     style="width: 76px; margin-bottom: 23px;">
+                  <p class="card-title homepage-text-bold" style="margin-top: 10px; font-weight: 600;">Open source</p>
+                  <p class="card-text homepage-text-muted suggestion-text">Label Sleuth is an open source project welcoming
+                     contributions by the open source community.</p>
+                  <a href="community.html" class="btn btn-primary mt-auto stretched-link homepage-button">How can I
+                     contribute?</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="container-fluid homepage-section-light">
+   <div class="row homepage-quote-container">
+      <div class="card mb-3 mx-auto homepage-quote-card">
+         <div class="row no-gutters">
+            <div class="col-3 col-sm-2 col-md-1 homepage-quote-image">
+               <img src="_static/images/homepage/logo_round.svg" class="card-img" alt="Label Sleuth logo">
+            </div>
+            <div class="col-9 col-sm-10 col-md-11">
+               <p class="homepage-quote">Label Sleuth achieves this goal for challenging text classification and NLP
+                  tasks using a unique combination of very good user-interface and good backend active learning
+                  algorithms."</p>
+               <p class="homepage-quote-person"><b>Rishabh Iyer,</b> UT Dallas</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="container-fluid homepage-section-dark">
+   <div class="container homepage-section-header">
+      <p class="col text-center">Use cases</p>
+   </div>
+   <div class="container" style="padding-bottom: 60px; max-width: 1060px;">
+      <div class="row">
+         <div class="card-deck" style="margin-left: auto; margin-right: auto;">
+            <div class="card homepage-use-case-card">
+               <img src="_static/images/homepage/use_case_1.png" class="card-img"
+                  alt="Legal Document Understanding">
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title homepage-text-bold" style="margin-top: 10px; font-weight: 600;">Legal Document
+                     Understanding</h5>
+                  <p class="card-text homepage-use-card-text homepage-text-muted">Identify contract clauses of interest (e.g., clauses related
+                     to Warranties)</p>
+               </div>
+            </div>
+            <div class="card homepage-use-case-card">
+               <img src="_static/images/homepage/use_case_2.png" class="card-img" alt="Fight Social Violence">
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title homepage-text-bold" style="margin-top: 10px; font-weight: 600;">Fight Social
+                     Violence</h5>
+                  <p class="card-text  homepage-use-card-text homepage-text-muted">Identify within a large set of text messages bullying content
+                     as it begins in order to stop it</p>
+               </div>
+            </div>
+            <div class="card homepage-use-case-card">
+               <img src="_static/images/homepage/use_case_3.png" class="card-img" alt="Customer Care Analytics">
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title homepage-text-bold" style="margin-top: 10px; font-weight: 600;">Customer Care Analytics</h5>
+                  <p class="card-text  homepage-use-card-text homepage-text-muted">Classify customer interactions across different dimensions of interest (e.g., request types, sentiment, etc.)</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="container-fluid homepage-section-light" id="installation-instructions">
+
+   <a name="getstarted"></a>
+
+   <div class="container homepage-section-header">
+      <p class="col text-center">Get started in 4 easy steps</p>
+   </div>
+
+   <div class="get-started-container" style="padding-top: 0px; padding-bottom: 20px;">
+      <div class="get-started-row">
+         <div class="get-started-card-deck">
+            <div class="get-started-card1  col-lg" >
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title" style="margin-top: 10px; font-weight: 600;">1. Install Anaconda</h5>
+                  <p class="card-text text-muted">Let's make sure you have a separate Python environment for Label
+                     Sleuth</p>
+                  <a class="reference external" href="https://www.anaconda.com">Get Anaconda</a>
+               </div>
+            </div>
+            <div class="get-started-card2 col-lg" >
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title" style="margin-top: 10px; font-weight: 600;">2. Activate Environment</h5>
+                  <p class="card-text text-muted">Let's setup your Python enviroment</p>
+                  <p class="card-text text-muted">Open a terminal or restart it if already open</p>
+                  <p class="code-block"><code>conda create --yes -n label-sleuth python=3.8</code></p>
+                  <p class="code-block"><code>conda activate label-sleuth</code></p>
+               </div>
+            </div>
+            <div class="get-started-card3 col-lg" >
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title" style="margin-top: 10px; font-weight: 600;">3. Install Label Sleuth</h5>
+                  <p class="card-text text-muted">Install the system</p>
+                  <p class="code-block"><code>pip install label-sleuth</code></p>
+               </div>
+            </div>
+            <div class="get-started-card4 col-lg" >
+               <div class="card-body d-flex flex-column">
+                  <h5 class="card-title" style="margin-top: 10px; font-weight: 600;">4. Fire it all up</h5>
+                  <p class="card-text text-muted">Start Label Sleuth</p>
+                  <p class="code-block"><code>python -m label_sleuth.start_label_sleuth</code></p>
+                  <p class="card-text text-muted">Access Label Sleuth on your browser</p>
+                  <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>
+                  <p class="card-text text-muted" style="margin-top: 20px;">For a quick start, check out our tutorial
+                  </p>
+                  <a class="reference external" href="docs/tutorial.html">View tutorial</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+
+
+<div class="container-fluid homepage-section-dark homepage-last-section">
+
+   <div class="container homepage-section-header">
+      <p class="col text-center">Label Sleuth collaborators include</p>
+   </div>
+
+   <div class="row" style="padding-bottom: 40px">
+      <div class="col text-center homepage-collaborator-container">
+         <img class="homepage-collaborator-logo" src="_static/images/homepage/ibm.png" alt="IBM">
+         <img class="homepage-collaborator-logo" src="_static/images/homepage/notredame.png" alt="Notre Dame University">
+         <img class="homepage-collaborator-logo" src="_static/images/homepage/utdallas.png" alt="UT Dallas">
+      </div>
+   </div>
+</div>
+{% endblock %}
+
+{%- block footer %}
+
+<a href="#" class="top">Back to Top &#8593;</a>
+
+<div class="container about-project-container">
+<div class="row about-project-text">
+   <div class="col text-center">
+      <p>Label Sleuth is an open source project initiated by IBM Research in collaboration with leading universities</p>
+      <img src="_static/images/homepage/ibm_research.svg" alt="IBM Research">
+   </div>
+</div>
+</div>
+
+<footer class="bd-footer" style="border: none; background-color: #ffffff; padding-bottom: 20px;">
+   <div class="bd-footer__inner container">
+      {% for footer_item in theme_footer_items %}
+      <div class="footer-item">
+         {% include footer_item %}
+      </div>
+      {% endfor %}
+   </div>
+</footer>
+{%- endblock %}
