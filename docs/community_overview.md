@@ -1,9 +1,9 @@
-Label Sleuth is an open source project initiatied by IBM Research in collaboration with leading universities.
+Label Sleuth is an open source project initiated by IBM Research in collaboration with leading universities.
 As the Label Sleuth open source community, we welcome contributions from everyone, including but not limited to
-members of the open source, scientific, and industial communities.
+members of the open source, scientific, and industrial communities.
 
 Contributions can take different forms and are not limited to contributing code.
-In addition contributing code, valuable contributions also include reporting bugs or suggesting new features.
+In addition to contributing code, valuable contributions also include reporting bugs or suggesting new features.
 
 If you are a domain expert with the need to easily create custom NLP models or passionate about enabling domain experts
 to easily create such models, check our contribution guidelines below for ways to contribute.
