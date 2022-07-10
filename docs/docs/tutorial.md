@@ -3,12 +3,27 @@
 New to Label Sleuth? We suggest following this quick tutorial to try it out. In this tutorial, you will use Label Sleuth to create a model that identifies sentences describing animal habitats in the sample dataset from Wikipedia.    
 
 :::{note}
-Before proceeding, make sure that you have already installed Label Sleuth, following our [installation instructions](installation.md), and that you loaded the sample dataset at startup.
+Before proceeding, make sure that you have already installed Label Sleuth, following our [installation instructions](installation.md).
 :::
 
 ## Steps
 
-### (1) Create new workspace
+### (1) Start Label Sleuth
+
+If Label Sleuth is not already running (or you have not instructed it to load the sample dataset at startup), invoke it with the following command:
+
+```
+python -m label_sleuth.start_label_sleuth --load_sample_corpus wiki_animals_2000_pages
+```
+
+This starts the system and pre-loads a set of Wikipedia documents to use in the rest of the tutorial.
+
+Once started, access Label Sleuth on your browser by navigating to the following page:
+
+[http://localhost:8000/](http://localhost:8000/)
+
+
+### (2) Create new workspace
 
 ::::{grid} 2
 :padding: 4
@@ -33,7 +48,7 @@ _**How:** To create a workspace, enter your preferred name and select the pre-lo
 
 ::::
 
-### (2) Create new category
+### (3) Create new category
 
 ::::{grid} 2
 :padding: 4
@@ -58,13 +73,12 @@ _**How:** To create a category, click the `+` icon at the top of the screen. In 
 
 ::::
 
-### (3) Start annotating
+### (4) Start annotating
 
 You are now ready to start annotating sentences as positive or negative w.r.t. the category you have created. For example, the following sentence is a positive example for the Habitat category:
 
 ```text
-The Komodo dragon is endemic to the Indonesian islands of
-Komodo, Rinca, Flores, and Gili Motang
+The Komodo dragon is endemic to the Indonesian islands of Komodo, Rinca, Flores, and Gili Motang
 ```
 
 Focus more on annotating _positive_ examples (i.e., sentences that describe the habitat), as they are much more valuable for the AI model. There are initially two ways to identify elements to annotate:
@@ -121,7 +135,7 @@ _**How:** If not already shown, bring up the search panel by clicking on the mag
 
 ::::
 
-### (4) Continue annotating
+### (5) Continue annotating
 
 ::::{grid} 2
 :padding: 4
@@ -147,7 +161,7 @@ _**How:** Keep annotating as usual. Check the progress bar on the left for annot
 
 ::::
 
-### (5) Receive annotation guidance
+### (6) Receive annotation guidance
 
 ::::{grid} 2
 :padding: 4
@@ -173,7 +187,7 @@ _**How:** If not shown, bring up the recommendation panel by clicking on the `La
 
 ::::
 
-### (6) Check the AI model's predictions
+### (7) Check the AI model's predictions
 
 ::::{grid} 2
 :padding: 4
@@ -199,12 +213,12 @@ _**How:** If not shown, bring up the list of all positive predictions of the AI 
 
 ::::
 
-### (7) Keep going
+### (8) Keep going
 
 Keep annotating. Occasionally, a new version of the AI model is created to provide better guidance of next elements to annotate and to better identify positive sentences.
 Spend 30 mins with Label Sleuth. Does the AI model get better in finding positive sentences for your target category?
 
 
-### (8) Great job!
+### (9) Great job!
 
 You have mastered the basics of Label Sleuth! You are now ready to use it to create classification models for your own use cases.

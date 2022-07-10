@@ -49,11 +49,17 @@ Recommended procedure to install Label Sleuth:
    python -m label_sleuth.start_label_sleuth --load_sample_corpus wiki_animals_2000_pages
    ```
    
-   This command also pre-loads a collection of Wikipedia documents for demonstration purposes.
+   This command also pre-loads a collection of Wikipedia documents that will be used in the tutorial below.
    
    Access Label Sleuth on your browser by navigating to the following page:
 
    [http://localhost:8000/](http://localhost:8000/)
+
+5. **Follow tutorial** (Recommended)
+
+   Now that you have installed Label Sleuth, we strongly recommend following our step-by-step tutorial to get acquainted with the system.
+
+   [View tutorial](tutorial.md)
 
 :::
 
@@ -74,7 +80,3 @@ When starting up Label Sleuth, the project directory and port can be customized 
 - ```--host <ip_or_name>```:
    - Set host to ```<ip_or_name>``` (default is localhost, use 0.0.0.0 to expose the service to external communication)
 :::
-
-## Next steps
-
-Now that you have installed Label Sleuth, check out our quick system [tutorial](tutorial.md). 
