@@ -20,6 +20,10 @@ body{
   display: block;
 } 
 
+span.pre, pre {
+  white-space: pre-wrap;
+}
+
 /* Override theme's background color and font color for nav bar */
 .bd-header.navbar-light#navbar-main {
   background-color: black !important;
