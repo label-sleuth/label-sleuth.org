@@ -64,7 +64,15 @@ Recommended procedure to install Label Sleuth:
 :::
 
 :::{tab-item} For developers
-If you wish to contribute code to the project, follow the instructions on [GitHub](https://github.com/label-sleuth/label-sleuth/#setting-up-a-development-environment)
+1. **Install Label Sleuth**
+
+   If you wish to contribute code to the project, follow the installation instructions on [GitHub](https://github.com/label-sleuth/label-sleuth/#setting-up-a-development-environment).
+
+2. **Follow tutorial** (Recommended)
+
+   Once you have installed Label Sleuth, we strongly recommend following our step-by-step tutorial to get acquainted with the system.
+
+   [View tutorial](tutorial.md)
 :::
 
 ::::
