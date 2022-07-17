@@ -897,7 +897,7 @@ Manually trigger a new iteration flow.
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/force_train?category_id=<my_category_id>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/force_train?category_id=<category_id>```
 
 ---
 
