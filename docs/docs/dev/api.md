@@ -475,7 +475,7 @@ Stream of a csv file
 {
     "categories": [
         {
-            "category": "category1",
+            "category_id": "3",
             "counter": 30
         }
     ],
