@@ -281,11 +281,9 @@ Create new category within a specified workspace. The request should include the
 
 ```json
 {
-   "category": {
-      "category_description": "description",
-      "category_name": "my_category",
-      "id": "my_category"
-   }
+   "category_description": "my_description",
+   "category_name": "my_category",
+   "category_id": "0"
 }
 ```
 
@@ -299,7 +297,7 @@ This endpoint permanently deletes the category along with all data associated wi
 
 ---
 
-<span class="request_type">DELETE</span> ```/workspace/<workspace_id>/category/<category_name>```
+<span class="request_type">DELETE</span> ```/workspace/<workspace_id>/category/<category_id>```
 
 ---
 
@@ -311,8 +309,11 @@ Empty
 
 **Example response:**
 
-```
-{"category": "my_category_name"}
+```json
+{
+   "workspace_id": "my_workspace",
+   "category_id": "0"
+}
 ```
 
 ### Get list of categories
@@ -339,12 +340,12 @@ Empty
       {
          "category_description": "",
          "category_name": "category1",
-         "id": "category1"
+         "category_id": "0"
       },
       {
          "category_description": "",
          "category_name": "category2",
-         "id": "category2"
+         "category_id": "1"
       }
    ]
 }
@@ -360,7 +361,7 @@ Update the label of a selected element. This endpoint either sets or removes the
 
 ---
 
-<span class="request_type">PUT</span> ```/workspace/<workspace_id>/element/<element_id>?category_name=<my_category_name>&value=```
+<span class="request_type">PUT</span> ```/workspace/<workspace_id>/element/<element_id>?category_id=<category_id>```
 
 ---
 
@@ -368,7 +369,7 @@ Update the label of a selected element. This endpoint either sets or removes the
 
 ```json
 {
-   "category_name": "cat1",
+   "category_id": "1",
    "value": "true",
    "update_counter": true
 }
@@ -378,7 +379,7 @@ Update the label of a selected element. This endpoint either sets or removes the
 
 ```json
 {
-   "category_name": "my_category",
+   "category_id": "1",
    "element": {
       "begin": 866,
       "docid": "isear_dev-0",
@@ -402,7 +403,7 @@ Get all elements for selected category that have been assigned a positive label 
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/positive_elements```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/positive_elements?category_id=<category_id>```
 
 ---
 
@@ -428,7 +429,7 @@ Empty
          "text": "When I realized that I had been wrong about a person close to me, because of pre-set ideas and prejudices.",
          "user_labels": {
             "1": "true",
-            "123": "false"
+            "2": "false"
          }
       },
       {
@@ -442,7 +443,7 @@ Empty
          "text": "I feared that I would not be able to hand in the book-report on time as I had started working very late.  The book was difficult to read and my teacher did not accept my work as it was handed in late.",
          "user_labels": {
             "1": "true",
-            "123": "true"
+            "2": "true"
          }
       }
   ]
@@ -544,11 +545,11 @@ Empty
 
 ### Get document elements
 
-Get all elements in selected document. Note: The `category_name` is optional.
+Get all elements in selected document. Note: The `category_id` is optional.
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/document/<document_id>?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/document/<document_id>?category_id=<category_id>```
 
 ---
 
@@ -600,7 +601,7 @@ Get elements in the selected document that received a positive prediction from t
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/document/<document_id>/positive_predictions?category_name=<my_category_name>&start_idx=<start_index>&size=<max_results>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/document/<document_id>/positive_predictions?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
 
 ---
 
@@ -653,7 +654,7 @@ The response contains the total number of positive predictions in `hit_count` an
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/positive_predictions?category_name=<my_category_name>&start_idx=<start_index>&size=<max_results>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/positive_predictions?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
 
 ---
 
@@ -674,11 +675,11 @@ Empty
          "end":31,
          "id":"wiki_new-2011 Svalbard polar bear attack-0",
          "model_predictions":{
-            "cat1":"true"
+            "0":"true"
          },
          "text":"2011 Svalbard polar bear attack",
          "user_labels":{
-            "cat1":"true"
+            "0":"true"
          }
       },
       {
@@ -687,11 +688,11 @@ Empty
          "end":167,
          "id":"wiki_new-2011 Svalbard polar bear attack-1",
          "model_predictions":{
-            "cat1":"true"
+            "0":"true"
          },
          "text":"The 2011 Svalbard polar bear attack was an attack by a presumed starving polar bear on a group of university students and their guides.",
          "user_labels":{
-            "cat1":"true"
+            "0":"true"
          }
       }
    ],
@@ -706,7 +707,7 @@ Get elements matching a regular expression. The following parameters must be pro
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/query?qry_string=<my_query>&category_name=<my_category>&sample_start_idx=<sample_start_index>&qry_size=<query_size>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/query?qry_string=<my_query>&category_id=<category_id>&sample_start_idx=<sample_start_index>&qry_size=<query_size>```
 
 ---
 
@@ -731,7 +732,7 @@ Empty
          "model_predictions": {},
          "text": "The sadness came to me when I heard that my girlfriend whom I loved so much got married to another man before a rebuff from her.",
          "user_labels": {
-         "123": "true"
+         "2": "true"
       }
       },
       {
@@ -757,7 +758,7 @@ Get information about the labeling status for the selected category. The endpoin
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/status?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/status?category_id=<category_id>```
 
 ---
 
@@ -788,7 +789,7 @@ Get information about all the iteration flows for the selected category and thei
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/models?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/models?category_id=<category_id>```
 
 ---
 
@@ -809,7 +810,7 @@ Empty
          "iteration": 6,
          "model_id": "8ae60534-7dd0-11ec-a0a3-a648083b7a24,8ae6bfec-7dd0-11ec-a0a3-a648083b7a24",
          "model_metadata": {
-            "category_name": "1",
+            "category_id": "1",
             "changed_fraction": 0.0625,
             "positive_fraction": 0.22005208333333334,
             "train_counts": {
@@ -827,7 +828,7 @@ Empty
          "iteration": 7,
          "model_id": "c60c997a-7dd0-11ec-a09b-a648083b7a24,c60f424c-7dd0-11ec-a09b-a648083b7a24",
          "model_metadata": {
-            "category_name": "1",
+            "category_id": "1",
             "changed_fraction": 0.036458333333333336,
             "positive_fraction": 0.21744791666666666,
             "train_counts": {
@@ -849,7 +850,7 @@ Get elements to label. If at least one Iteration has completed for the selected 
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/active_learning?category_name=<my_category_name>&start_idx=<start_index>&size=<max_results>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/active_learning?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
 
 ---
 
@@ -870,7 +871,7 @@ Empty
          "end": 44857,
          "id": "isear_dev-0-387",
          "model_predictions": {
-            "123": "false"
+            "0": "false"
          },
          "text": "When I heard that my step-mother had treated my mother in a wrong manner.",
          "user_labels": {}
@@ -881,7 +882,7 @@ Empty
          "end": 75761,
          "id": "isear_dev-0-668",
          "model_predictions": {
-            "123": "false"
+            "0": "false"
          },
          "text": "During a meeting.",
          "user_labels": {}
@@ -896,7 +897,7 @@ Manually trigger a new iteration flow.
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/force_train?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/force_train?category_id=<category_id>```
 
 ---
 
@@ -920,11 +921,11 @@ Empty
 
 ### Export predictions
 
-Download the predictions of the model learned during iteration `iteration_index` for category `category_name`, as a csv file.
+Download the predictions of the model learned during iteration `iteration_index` for category `category_id`, as a csv file.
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_predictions?category_name=<my_category_name>&iteration_index=<iteration_index>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_predictions?category_id=<category_id>&iteration_index=<iteration_index>```
 
 ---
 
@@ -953,7 +954,7 @@ Download the trained model files for the given category and iteration index. If 
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_model?category_name=<my_category>&iteration_index=<iteration_number>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_model?category_id=<category_id>&iteration_index=<iteration_number>```
 
 ---
 
@@ -980,7 +981,7 @@ used to evaluate the precision of the model predictions: the user should label t
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/evaluation_elements?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/evaluation_elements?category_id=<category_id>```
 
 ---
 
@@ -1027,7 +1028,7 @@ Run precision evaluation.
 
 ---
 
-<span class="request_type">POST</span> ```/workspace/<workspace_id>/estimate_precision?category_name=<my_category_name>```
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/estimate_precision?category_id=<category_id>```
 
 ---
 
@@ -1055,7 +1056,7 @@ Get all labeled elements where the predictions of the latest model for the categ
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/disagree_elements?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/disagree_elements?category_id=<category_id>```
 
 ---
 
@@ -1076,11 +1077,11 @@ Empty
          "end": 37012,
          "id": "isear_dev-0-309",
          "model_predictions": {
-            "123": "false"
+            "2": "false"
          },
          "text": "I had wasted some time instead of doing something I needed to do to give to a friend. (Also in the time I wasted I had done some things I did not consider morally right).",
          "user_labels": {
-            "123": "true"
+            "2": "true"
          }
       },
       {
@@ -1089,11 +1090,11 @@ Empty
          "end": 37338,
          "id": "isear_dev-0-310",
          "model_predictions": {
-            "123": "false"
+            "2": "false"
          },
          "text": "A friend of mine had said something about not liking to come to my place just before coming to my place.   In the meanwhile I got to learn about this from another friend of mine and when she arrived at my place I really treated her badly.  I was later ashamed of the way I had treated someone when the person was at my place.",
          "user_labels": {
-            "123": "true"
+            "2": "true"
          }
       }
    ]
@@ -1108,7 +1109,7 @@ The current implementation relies on cross validation: Several models are traine
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/suspicious_elements?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/suspicious_elements?category_id=<category_id>```
 
 ---
 
@@ -1164,7 +1165,7 @@ The current implementation relies on distances between text embeddings to identi
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/contradiction_elements?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/contradiction_elements?category_id=<category_id>```
 
 ---
 
@@ -1220,7 +1221,7 @@ elements for the selected category, along with weights indicating the relative s
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/labeled_info_gain?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/labeled_info_gain?category_id=<category_id>```
 
 ---
 
@@ -1262,7 +1263,7 @@ elements by the latest model for the selected category, along with weights indic
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/predictions_info_gain?category_name=<my_category_name>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/predictions_info_gain?category_id=<category_id>```
 
 ---
 
