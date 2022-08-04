@@ -25,7 +25,7 @@ span.pre {
 This page describes the REST API that the system's frontend uses to communicate with the backend.
 
 :::{note}
-All requests should also pass an authorization header with the Bearer token returned by the  [login endpoint](#login).
+If in the configuration file `login_required` is set to true, all requests should also pass an authorization header with the Bearer token returned by the  [login endpoint](#login).
 :::
 
 ## User Management
