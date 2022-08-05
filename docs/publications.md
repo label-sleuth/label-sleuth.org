@@ -2,6 +2,24 @@
 
 This page lists works published by the Label Sleuth core team on system components and related aspects:
 
+**System Description**
+- [Label Sleuth: From Unlabeled Text to a Classifier in a Few Hours](https://arxiv.org/abs/2208.01483) (arXiv 2022)
+
+   This is the _main publication_ describing the system. If you use Label Sleuth in your work in any capacity (e.g., for labeling data, extending the system, running experiments, etc.), please cite this paper as follows: 
+
+   ```text
+   @article{labelsleuth2022,
+      title={{Label} {Sleuth}: From Unlabeled Text to a Classifier in a Few Hours}, 
+      author={Shnarch, Eyal and Halfon, Alon and Gera, Ariel and Danilevsky, Marina and Katsis, Yannis and Choshen, Leshem and Cooper, Martin Santillan and Epelboim, Dina and Zhang, Zheng and Wang, Dakuo and Yip, Lucy and Ein-Dor, Liat and Dankin, Lena and Shnayderman, Ilya and Aharonov, Ranit and Li, Yunyao and Liberman, Naftali and Slesarev, Philip Levin and Newton, Gwilym and Ofek-Koifman, Shila and Slonim, Noam and Katz, Yoav},
+      url={https://arxiv.org/abs/2208.01483},
+      journal={arXiv:2208.01483},
+      eprint={2208.01483},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      year={2022}
+   }
+   ```
+
 **Few-Shot classification, Active Learning \& User Feedback**
 - [Active Learning for BERT: An Empirical Study](https://aclanthology.org/2020.emnlp-main.638/) (EMNLP 2020)
 - [Facilitating Knowledge Sharing from Domain Experts to Data Scientists for Building NLP Models](https://dl.acm.org/doi/10.1145/3397481.3450637?cid=81474694114) (IUI 2021)
