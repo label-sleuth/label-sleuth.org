@@ -979,7 +979,7 @@ used to evaluate the precision of the model predictions: the user should label t
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/evaluation_elements?category_id=<category_id>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/precision_evaluation_elements?category_id=<category_id>```
 
 ---
 
@@ -1026,7 +1026,7 @@ Run precision evaluation.
 
 ---
 
-<span class="request_type">POST</span> ```/workspace/<workspace_id>/estimate_precision?category_id=<category_id>```
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/precision_evaluation_elements?category_id=<category_id>```
 
 ---
 
