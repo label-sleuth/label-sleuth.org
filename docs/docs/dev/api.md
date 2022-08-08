@@ -1033,7 +1033,17 @@ Run precision evaluation.
 **Example request:**
 
 ```
-Empty
+{
+  "ids": [
+    "wiki_animals_2000_pages-Chestnut_headed bee_eater-15",
+    "wiki_animals_2000_pages-Hairy_eared cerrado mouse-22",
+    "wiki_animals_2000_pages-Spectacled bear-106",
+    "wiki_animals_2000_pages-Scimitar oryx-152",
+    "wiki_animals_2000_pages-Red_headed trogon-34"
+  ],
+  "iteration": 1,
+  "changed_elements_count": 4
+}
 ```
 
 **Example response:**
@@ -1043,6 +1053,33 @@ Empty
     "score": 0.98
 }
 ```
+
+### Cancel precision evaluation
+
+Cancel precision evaluation.
+
+---
+
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/cancel_precision_evaluation?category_id=<category_id>```
+
+---
+
+**Example request:**
+
+```
+{
+    "changed_elements_count": 20
+}
+```
+
+**Example response:**
+
+```
+{
+    "canceled": "OK"
+}
+```
+
 
 ## Label Quality Reports
 
