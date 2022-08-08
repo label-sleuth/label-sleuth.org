@@ -803,44 +803,42 @@ Empty
 
 ```json
 {
-   "models": [
-      {
-         "active_learning_status": "READY",
-         "creation_epoch": 1643109517.890951,
-         "iteration": 6,
-         "model_id": "8ae60534-7dd0-11ec-a0a3-a648083b7a24,8ae6bfec-7dd0-11ec-a0a3-a648083b7a24",
-         "model_metadata": {
-            "category_id": "1",
-            "changed_fraction": 0.0625,
-            "positive_fraction": 0.22005208333333334,
-            "train_counts": {
-               "false": 4,
-               "true": 95,
-               "weak_false": 186
-            }
-         },
-         "model_status": "READY",
-         "model_type": "SVM_ENSEMBLE"
-      },
-      {
-         "active_learning_status": "READY",
-         "creation_epoch": 1643109617.141633,
-         "iteration": 7,
-         "model_id": "c60c997a-7dd0-11ec-a09b-a648083b7a24,c60f424c-7dd0-11ec-a09b-a648083b7a24",
-         "model_metadata": {
-            "category_id": "1",
-            "changed_fraction": 0.036458333333333336,
-            "positive_fraction": 0.21744791666666666,
-            "train_counts": {
-               "false": 4,
-               "true": 112,
-               "weak_false": 220
-            }
-         },
-         "model_status": "READY",
-         "model_type": " SVM_ENSEMBLE"
-      }
-   ]
+    "models": [
+        {
+            "active_learning_status": "READY",
+            "changed_fraction": 0.048352962826647035,
+            "creation_epoch": 1659865447.163773,
+            "estimated_precision": 0.6,
+            "estimated_precision_num_elements": 5,
+            "iteration": 0,
+            "model_metadata": {
+                "train_counts": {
+                    "false": 53,
+                    "true": 86,
+                    "weak_false": 119
+                }
+            },
+            "model_status": "READY",
+            "model_type": "SVM_Ensemble",
+            "positive_fraction": 0.15332857931542143
+        },
+        {
+            "active_learning_status": "READY",
+            "changed_fraction": 0.038921604711078396,
+            "creation_epoch": 1659866548.713974,
+            "iteration": 1,
+            "model_metadata": {
+                "train_counts": {
+                    "false": 59,
+                    "true": 90,
+                    "weak_false": 121
+                }
+            },
+            "model_status": "READY",
+            "model_type": "SVM_Ensemble",
+            "positive_fraction": 0.1512582811924917
+        }
+    ]
 }
 ```
 
