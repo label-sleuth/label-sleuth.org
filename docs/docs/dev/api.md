@@ -803,44 +803,42 @@ Empty
 
 ```json
 {
-   "models": [
-      {
-         "active_learning_status": "READY",
-         "creation_epoch": 1643109517.890951,
-         "iteration": 6,
-         "model_id": "8ae60534-7dd0-11ec-a0a3-a648083b7a24,8ae6bfec-7dd0-11ec-a0a3-a648083b7a24",
-         "model_metadata": {
-            "category_id": "1",
-            "changed_fraction": 0.0625,
-            "positive_fraction": 0.22005208333333334,
-            "train_counts": {
-               "false": 4,
-               "true": 95,
-               "weak_false": 186
-            }
-         },
-         "model_status": "READY",
-         "model_type": "SVM_ENSEMBLE"
-      },
-      {
-         "active_learning_status": "READY",
-         "creation_epoch": 1643109617.141633,
-         "iteration": 7,
-         "model_id": "c60c997a-7dd0-11ec-a09b-a648083b7a24,c60f424c-7dd0-11ec-a09b-a648083b7a24",
-         "model_metadata": {
-            "category_id": "1",
-            "changed_fraction": 0.036458333333333336,
-            "positive_fraction": 0.21744791666666666,
-            "train_counts": {
-               "false": 4,
-               "true": 112,
-               "weak_false": 220
-            }
-         },
-         "model_status": "READY",
-         "model_type": " SVM_ENSEMBLE"
-      }
-   ]
+    "models": [
+        {
+            "active_learning_status": "READY",
+            "changed_fraction": 0.048352962826647035,
+            "creation_epoch": 1659865447.163773,
+            "estimated_precision": 0.6,
+            "estimated_precision_num_elements": 5,
+            "iteration": 0,
+            "model_metadata": {
+                "train_counts": {
+                    "false": 53,
+                    "true": 86,
+                    "weak_false": 119
+                }
+            },
+            "model_status": "READY",
+            "model_type": "SVM_Ensemble",
+            "positive_fraction": 0.15332857931542143
+        },
+        {
+            "active_learning_status": "READY",
+            "changed_fraction": 0.038921604711078396,
+            "creation_epoch": 1659866548.713974,
+            "iteration": 1,
+            "model_metadata": {
+                "train_counts": {
+                    "false": 59,
+                    "true": 90,
+                    "weak_false": 121
+                }
+            },
+            "model_status": "READY",
+            "model_type": "SVM_Ensemble",
+            "positive_fraction": 0.1512582811924917
+        }
+    ]
 }
 ```
 
@@ -981,7 +979,7 @@ used to evaluate the precision of the model predictions: the user should label t
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/evaluation_elements?category_id=<category_id>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/precision_evaluation_elements?category_id=<category_id>```
 
 ---
 
@@ -1028,14 +1026,24 @@ Run precision evaluation.
 
 ---
 
-<span class="request_type">POST</span> ```/workspace/<workspace_id>/estimate_precision?category_id=<category_id>```
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/precision_evaluation_elements?category_id=<category_id>```
 
 ---
 
 **Example request:**
 
 ```
-Empty
+{
+  "ids": [
+    "wiki_animals_2000_pages-Chestnut_headed bee_eater-15",
+    "wiki_animals_2000_pages-Hairy_eared cerrado mouse-22",
+    "wiki_animals_2000_pages-Spectacled bear-106",
+    "wiki_animals_2000_pages-Scimitar oryx-152",
+    "wiki_animals_2000_pages-Red_headed trogon-34"
+  ],
+  "iteration": 1,
+  "changed_elements_count": 4
+}
 ```
 
 **Example response:**
@@ -1045,6 +1053,33 @@ Empty
     "score": 0.98
 }
 ```
+
+### Cancel precision evaluation
+
+Cancel precision evaluation.
+
+---
+
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/cancel_precision_evaluation?category_id=<category_id>```
+
+---
+
+**Example request:**
+
+```
+{
+    "changed_elements_count": 20
+}
+```
+
+**Example response:**
+
+```
+{
+    "canceled": "OK"
+}
+```
+
 
 ## Label Quality Reports
 
