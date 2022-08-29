@@ -77,7 +77,8 @@ In addition to the preloaded models, Label Sleuth can be extended to support add
 1. Implement a new `ModelAPI`.
 
     Machine learning models are integrated by adding a new implementation of the ModelAPI.
-    The main functions are *_train()* and *_infer()*:
+    The main functions are *_train()*, *load_model()* and *infer()*:
+
     
     **Train** a new model.
 
@@ -89,12 +90,20 @@ In addition to the preloaded models, Label Sleuth can be extended to support add
     *[{'text': 'text1', 'label': 1, 'additional_field': 'value1'}, {'text': 'text2', 'label': 0, 'additional_field': 'value2'}]*
     - train_params - dictionary for additional train parameters (can be None)
 
+    **Load** a trained model.
+    ```python   
+    def load_model(self, model_path: str):
+    ```
+    - model_path: path to a directory containing all model components
+   
+    Returns an object that contains all the components that are necessary to perform inference (e.g., the trained model itself, the language recognized by the model, a trained vectorizer/tokenizer etc.).
+
     **Infer** a given sequence of elements and return the results.
 
-    ```python    
-    def _infer(self, model_id, items_to_infer: Sequence[Mapping]) -> Sequence[Prediction]:
-    ```    
-    - model_id
+    ```python
+    def infer(self, model_components, items_to_infer) -> Sequence[Prediction]:
+    ```
+    - model_components: the return value of `load_model()`, i.e., an object containing all the components that are necessary to perform inference
     - items_to_infer: a list of dictionaries with at least the "text" field. Additional fields can be passed,
     e.g. *[{'text': 'text1', 'additional_field': 'value1'}, {'text': 'text2', 'additional_field': 'value2'}]*
     
