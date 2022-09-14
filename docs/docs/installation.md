@@ -4,9 +4,13 @@ title: Installation
 ---
 
 # Installation
-Label Sleuth can run on Windows, MacOS and Linux.<br>
-The minimum requirements are 2 cores and 4GB RAM. For improved performance, it is recommended to use 8 cores and 16GB RAM, particularly when working with large datasets.<br>
-Some models may have special hardware requirements to perform as expected, see [models](https://www.label-sleuth.org/docs/dev/model_training.html#models).  
+
+:::{admonition} System requirements
+
+To install Label Sleuth, your system should satisfy the following requirements:
+- **Operating System:** Windows, MacOS, or Linux
+- **Hardware:** At least 2 CPU cores and 4GB RAM (for improved performance, 8 CPU cores and 16GB RAM are recommended, especially when working with large datasets). Note that some models may have additional hardware requirements, as outlined in the [models](https://www.label-sleuth.org/docs/dev/model_training.html#models) documentation.
+:::
 
 ::::{tab-set}
 
