@@ -3,19 +3,17 @@
 This page lists works published by the Label Sleuth core team on system components and related aspects:
 
 **System Description**
-- [Label Sleuth: From Unlabeled Text to a Classifier in a Few Hours](https://arxiv.org/abs/2208.01483) (arXiv 2022)
+- [Label Sleuth: From Unlabeled Text to a Classifier in a Few Hours](https://arxiv.org/abs/2208.01483) (EMNLP 2022)
 
    This is the _main publication_ describing the system. If you use Label Sleuth in your work in any capacity (e.g., for labeling data, extending the system, running experiments, etc.), please cite this paper as follows: 
 
    ```text
-   @article{labelsleuth2022,
+   @inproceedings{labelsleuth2022,
       title={{Label} {Sleuth}: From Unlabeled Text to a Classifier in a Few Hours}, 
       author={Shnarch, Eyal and Halfon, Alon and Gera, Ariel and Danilevsky, Marina and Katsis, Yannis and Choshen, Leshem and Cooper, Martin Santillan and Epelboim, Dina and Zhang, Zheng and Wang, Dakuo and Yip, Lucy and Ein-Dor, Liat and Dankin, Lena and Shnayderman, Ilya and Aharonov, Ranit and Li, Yunyao and Liberman, Naftali and Slesarev, Philip Levin and Newton, Gwilym and Ofek-Koifman, Shila and Slonim, Noam and Katz, Yoav},
+      booktitle={Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
+      publisher = "Association for Computational Linguistics",
       url={https://arxiv.org/abs/2208.01483},
-      journal={arXiv:2208.01483},
-      eprint={2208.01483},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
       year={2022}
    }
    ```
