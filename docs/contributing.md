@@ -128,6 +128,20 @@ npm start
 
 The last version of the frontend is statically served by the backend, so if you aren't making any frontend contributions, frontend-related commands aren't required.
 
+### 6. Test the application
+
+To test the backend run:
+
+```sh
+python -m unittest
+```
+
+To test the frontend run:
+
+```sh
+npm start --prefix frontend
+```
+
 ### 6. Create a Pull Request
 
 We use [GitHub pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) to accept contributions. Once submitted, the pull request will be reviewed by the community as explained below.
@@ -136,7 +150,7 @@ We use [GitHub pull requests](https://docs.github.com/en/pull-requests/collabora
 
 Before contributing to the project, all contributors must sign a Developer Certificate of Origin (DCO). By signing the DCO, you are attesting that you are the author of the contribution and you are freely contributing it under the terms of the Apache-2.0 license.
 
-When you create the pull request, a bot will check if you have already signed the DCO. If not, it will block the pull request and ask you to do so.
+To sign the DCO, include a copy of the DCO in a pull request comment.
 
 #### Code Review
 
