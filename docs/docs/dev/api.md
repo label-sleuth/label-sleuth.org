@@ -805,7 +805,7 @@ Empty
 {
     "models": [
         {
-            "active_learning_status": "READY",
+            "iteration_status": "READY",
             "changed_fraction": 0.048352962826647035,
             "creation_epoch": 1659865447.163773,
             "estimated_precision": 0.6,
@@ -823,7 +823,7 @@ Empty
             "positive_fraction": 0.15332857931542143
         },
         {
-            "active_learning_status": "READY",
+            "iteration_status": "READY",
             "changed_fraction": 0.038921604711078396,
             "creation_epoch": 1659866548.713974,
             "iteration": 1,
