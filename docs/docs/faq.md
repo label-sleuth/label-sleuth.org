@@ -5,7 +5,7 @@
 :margin: 2 2 0 0
 :color: light
 
-It is currently not possible to export the model that Label Sleuth generates. However, this is something that we plan to add in the near future. In the mean-time, you can export the labeled data that you created in Label Sleuth. This can be done by clicking on the "Download Data" button on the left side of the screen. 
+Yes! The latest model can be downloaded using the download icon next to the model version indicator. In the downloaded zip file you will find the model itself, as well as a code snippet demonstrating how it can be used within a python application. 
 
 :::
 
@@ -26,3 +26,19 @@ Label Sleuth in its default configuration _does not_ require a GPU, using instea
 However, as the system is customizable, one can override the default configuration to use different machine learning models. Depending on the choice of model, a GPU may be required. For a list of models that can be configured and their hardware requirements, refer to the [models](dev/model_training.md#models) documentation.
 
 :::
+
+:::{dropdown} **Can I build a multi-class model?** 
+:margin: 2 2 0 0
+:color: light
+
+At the moment the system does not natively support building multi-class models. Label Sleuth is geared towards working with one binary model at a time, in order to reduce the cognitive load on the labeler. However, you can use Label Sleuth to build multiple binary models (one per class). The collected labeled data for the different classes can then be downloaded and used to train a multi-class model.
+
+:::
+
+<br />
+
+:::{admonition} Have more questions?
+
+Reach out to us on <span>&nbsp;</span> [![Slack](https://img.shields.io/badge/Slack-darkgreen?logo=slack&logoColor=white)](https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ)
+:::
+
