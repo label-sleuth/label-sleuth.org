@@ -12,16 +12,26 @@ to easily create such models, check our contribution guidelines below for ways t
 
 Follow the links below to learn more about the Label Sleuth community.
 
-::::{grid} 2
+::::{grid} 3
+
+:::{grid-item-card}  How can I get in touch?
+:columns: 12 6 4 4
+:margin: 0 3 0 0
+
+Reach out to us on [Slack](https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ)
+
+:::
+
 :::{grid-item-card}  How can I contribute?
-:columns: 12 6 6 6
+:columns: 12 6 4 4
 :margin: 0 3 0 0
 
 Check our [contribution guidelines](contributing)
 
 :::
-:::{grid-item-card}  Who is in the Label Sleuth community?
-:columns: 12 6 6 6
+
+:::{grid-item-card}  Who is in the community?
+:columns: 12 6 4 4
 :margin: 0 3 0 0
 
 Check our current list of [contributors](contributors)

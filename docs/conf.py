@@ -86,6 +86,12 @@ html_theme_options = {
         "url": "https://github.com/label-sleuth/label-sleuth",
         "icon": "fab fa-github",
         "type": "fontawesome"
+      },
+      {
+        "name": "Slack",
+        "url": "https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ",
+        "icon": "fab fa-slack",
+        "type": "fontawesome"
       }
   ],
   "favicons": [
