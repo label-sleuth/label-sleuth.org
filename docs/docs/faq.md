@@ -27,15 +27,18 @@ However, as the system is customizable, one can override the default configurati
 
 :::
 
-:::{dropdown} **Can I build a multiclass model?** 
+:::{dropdown} **Can I build a multi-class model?** 
 :margin: 2 2 0 0
 :color: light
 
-At the moment the system does not support a multiclass scenario. Label Sleuth is geared towards working with binary classes which reduces the cognitive load on the labeler. However, there is no limit on the amount of binary classes you can build, and you can download the collected labeled data for the different classes, and use it to train a multiclass classifier.
+At the moment the system does not natively support building multi-class models. Label Sleuth is geared towards working with one binary model at a time, in order to reduce the cognitive load on the labeler. However, you can use Label Sleuth to build multiple binary models (one per class). The collected labeled data for the different classes can then be downloaded and used to train a multi-class model.
 
 :::
 
-##
-### **Have more questions?**
+<br />
 
-Talk to us on [![Slack](https://img.shields.io/badge/Slack-darkblue?logo=slack&logoColor=white)](https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ)
+:::{admonition} Have more questions?
+
+Reach out to us on <span>&nbsp;</span> [![Slack](https://img.shields.io/badge/Slack-darkgreen?logo=slack&logoColor=white)](https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ)
+:::
+
