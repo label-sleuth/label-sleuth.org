@@ -18,7 +18,7 @@ Follow the links below to learn more about the Label Sleuth community.
 :columns: 12 6 4 4
 :margin: 0 3 0 0
 
-Reach out to us on [Slack](https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ)
+Reach out to us on [Slack](https://join.slack.com/t/labelsleuth/shared_invite/zt-1j5tpz1jl-W~UaNEKmK0RtzK~lI3Wkxg)
 
 :::
 

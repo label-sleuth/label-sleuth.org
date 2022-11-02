@@ -89,7 +89,7 @@ html_theme_options = {
       },
       {
         "name": "Slack",
-        "url": "https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ",
+        "url": "https://join.slack.com/t/labelsleuth/shared_invite/zt-1j5tpz1jl-W~UaNEKmK0RtzK~lI3Wkxg",
         "icon": "fab fa-slack",
         "type": "fontawesome"
       }
