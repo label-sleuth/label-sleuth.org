@@ -39,6 +39,6 @@ At the moment the system does not natively support building multi-class models. 
 
 :::{admonition} Have more questions?
 
-Reach out to us on <span>&nbsp;</span> [![Slack](https://img.shields.io/badge/Slack-darkgreen?logo=slack&logoColor=white)](https://join.slack.com/t/labelsleuth/shared_invite/zt-1h1exje12-wuSTcktxUVHefZgAZ9bEiQ)
+Reach out to us on <span>&nbsp;</span> {{ '[![Slack](https://img.shields.io/badge/Slack-darkgreen?logo=slack&logoColor=white)]({})'.format(slack_link) }}
 :::
 

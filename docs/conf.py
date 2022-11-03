@@ -42,7 +42,7 @@ extensions = [
    'sphinx_togglebutton'
 ]
 
-myst_enable_extensions = ["colon_fence"]
+myst_enable_extensions = ["colon_fence", "substitution"]
 
 # Add no prefix to resource URLs for 404 page
 notfound_urls_prefix = ''
@@ -122,6 +122,10 @@ html_sidebars = {
 }
 
 html_additional_pages = {'index': 'index.html'}
+
+myst_substitutions = {
+  "slack_link": "https://join.slack.com/t/labelsleuth/shared_invite/zt-1j5tpz1jl-W~UaNEKmK0RtzK~lI3Wkxg"
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
