@@ -1,9 +1,37 @@
+
 {%- extends "layout.html" %}
 
 {%- block docs_sidebar %}
 {% endblock %}
 
 {%- block extrahead %}
+<script>
+document.addEventListener('readystatechange', event => {
+  switch (document.readyState) {
+    case "complete":
+      console.log("load page - append to page statistics ");
+      asyncCall();
+      break;
+  }
+});
+async function asyncCall() {
+  console.log('calling');
+
+   try {
+    const response = await fetch('https://label-sleuth-webpage-logger.ris2-debater-event.us-east.containers.appdomain.cloud/', {
+    method: 'post',
+    headers: {
+        'Content-Type': 'application/json'
+        },
+    body: JSON.stringify({url: window.location.href.split('?')[0]})
+    });
+    console.log('Completed!', response);
+  } catch(err) {
+    console.error(`Error: ${err}`);
+  }
+}
+</script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
