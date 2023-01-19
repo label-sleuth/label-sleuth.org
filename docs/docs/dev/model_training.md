@@ -63,8 +63,8 @@ The model architecture that is trained in each iteration is prescribed by the em
 
 | Model policy | Model type | Description |
 |---|---|---|
-| `STATIC_SVM_BOW` | Static | Use the `NB_OVER_BOW` model in every iteration |
-| `STATIC_SVM_GLOVE` | Static | Use the `NB_OVER_GLOVE` model in every iteration |
+| `STATIC_SVM_BOW` | Static | Use the `SVM_OVER_BOW` model in every iteration |
+| `STATIC_SVM_GLOVE` | Static | Use the `SVM_OVER_GLOVE` model in every iteration |
 | `STATIC_SVM_ENSEMBLE`  <br /><defvalue>default</defvalue> | Static | Use the `SVM_ENSEMBLE` model in every iteration |
 | `STATIC_HF_BERT` | Static | Use the `HF_BERT` in every iteration |
 
