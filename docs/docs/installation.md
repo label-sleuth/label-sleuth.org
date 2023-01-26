@@ -31,7 +31,7 @@ Recommended procedure to install Label Sleuth:
    In the new terminal, create a Python environment for Label Sleuth: 
 
    ```text
-   conda create --yes -n label-sleuth python=3.8
+   conda create --yes -n label-sleuth python=3.9
    ```
 
    Then, activate the new environment:
