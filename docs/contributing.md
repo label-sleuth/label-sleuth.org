@@ -37,7 +37,7 @@ installed:
 - Git
 - Anaconda
 
-_Note: Node.js is only required if you contributing code to the frontend of Label Sleuth._
+_Note: Node.js is only required if you are contributing code to the frontend of Label Sleuth._
   
 ### 1. Fork the repo
 
