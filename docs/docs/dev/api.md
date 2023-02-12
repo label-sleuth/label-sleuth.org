@@ -71,7 +71,7 @@ Upload a csv file, and add its contents as a collection of documents in the data
 If `dataset_name` does not already exist, it is created here. If it does exist, the process of adding documents also
 includes updating labels and model predictions for all workspaces that use this dataset.
 
-The uploaded csv file must adhere to the following format: It should include a 'text' column, and may optionally include a 'doc_id' column as well as metadata columns starting with the 'metadata_' prefix.
+The uploaded csv file must adhere to the following format: It should include a 'text' column, and may optionally include a 'document_id' column as well as metadata columns starting with the 'metadata_' prefix.
 
 ---
 
