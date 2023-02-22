@@ -62,7 +62,7 @@ Within the codebase, the list of supported models can be found in Label Sleuth's
 
 ### Model policies
 
-The model architecture that is trained in each iteration is prescribed by the employed _model policy_. In its most basic form, a model policy is _static_, resulting in the system always using the same model for every itera  tion. However, model policies can also be _dynamic_, allowing the system to switch between different types of models depending on the iteration. For instance, one can create a model policy instructing Label Sleuth to use a light and fast to train model (such as SVM) for the first few iterations and then switch to more complex and slower to train model (such as BERT) for later iterations. Label Sleuth currently supports the following model policies: 
+The model architecture that is trained in each iteration is prescribed by the employed _model policy_. In its most basic form, a model policy is _static_, resulting in the system always using the same model for every iteration. However, model policies can also be _dynamic_, allowing the system to switch between different types of models depending on the iteration. For instance, one can create a model policy instructing Label Sleuth to use a light and fast to train model (such as SVM) for the first few iterations and then switch to more complex and slower to train model (such as BERT) for later iterations. Label Sleuth currently supports the following model policies: 
 
 | Model policy | Model type | Description |
 |---|---|---|
