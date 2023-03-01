@@ -49,13 +49,16 @@ Label Sleuth currently includes implementations of the following machine learnin
 | Model name | Description | Implementation details | Hardware requirements
 |---|---|---|---|
 | `NB_OVER_BOW` | Naive Bayes over Bag-of-words | [scikit-learn](https://scikit-learn.org) implementation | - |
-| `NB_OVER_GLOVE` | Naive Bayes over GloVe | - | - |
+| `NB_OVER_WORD_EMBEDDINGS` | Naive Bayes over [word embeddings*](word_embeddings) | - | - |
 | `SVM_OVER_BOW` | Support Vector Machine over Bag-of-words | [scikit-learn](https://scikit-learn.org) implementation  | - |
-| `SVM_OVER_GLOVE` | Support Vector Machine over GloVe | - | - |
-| `SVM_ENSEMBLE` | Ensemble of `SVM_OVER_BOW` and `SVM_OVER_GLOVE` | - | - |
+| `SVM_OVER_WORD_EMBEDDINGS` | Support Vector Machine over [word embeddings*](word_embeddings) | - | - |
+| `SVM_ENSEMBLE` | Ensemble of `SVM_OVER_BOW` and `SVM_OVER_WORD_EMBEDDINGS` | - | - |
 | `HF_BERT` | BERT ([Devlin et al. 2018](https://arxiv.org/abs/1810.04805)) | Pytorch implementation using the [Hugging Face Transformers](https://github.com/huggingface/transformers) library | GPU _(recommended)_ |
 
- Within the codebase, the list of supported models can be found in Label Sleuth's [model catalog](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/models/core/catalog.py). Note that some model may have special hardware requirements to perform as expected (e.g., they require the presence of a GPU).
+Within the codebase, the list of supported models can be found in Label Sleuth's [model catalog](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/models/core/catalog.py). Note that some model may have special hardware requirements to perform as expected (e.g., they require the presence of a GPU).
+
+(word_embeddings)=
+[[*]](word_embeddings) For models that leverage word embeddings, the embeddings come from either [spaCy](https://spacy.io) or [fastText](https://fasttext.cc), depending on the information provided for the particular language (see [languages.py](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/models/core/languages.py) for details).
 
 ### Model policies
 
@@ -63,8 +66,10 @@ The model architecture that is trained in each iteration is prescribed by the em
 
 | Model policy | Model type | Description |
 |---|---|---|
+| `STATIC_NB_BOW` | Static | Use the `NB_OVER_BOW` model in every iteration |
+| `STATIC_NB_WORD_EMBEDDINGS` | Static | Use the `NB_OVER_WORD_EMBEDDINGS` model in every iteration |
 | `STATIC_SVM_BOW` | Static | Use the `SVM_OVER_BOW` model in every iteration |
-| `STATIC_SVM_GLOVE` | Static | Use the `SVM_OVER_GLOVE` model in every iteration |
+| `STATIC_SVM_WORD_EMBEDDINGS` | Static | Use the `SVM_OVER_WORD_EMBEDDINGS` model in every iteration |
 | `STATIC_SVM_ENSEMBLE`  <br /><defvalue>default</defvalue> | Static | Use the `SVM_ENSEMBLE` model in every iteration |
 | `STATIC_HF_BERT` | Static | Use the `HF_BERT` in every iteration |
 
