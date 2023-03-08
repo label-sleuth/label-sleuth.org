@@ -25,6 +25,7 @@ Documentation
    dev/model_training
    dev/active_learning
    dev/configuration
+   dev/languages
 
 .. toctree::
    :maxdepth: 2
