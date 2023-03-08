@@ -61,7 +61,18 @@ Recommended procedure to install Label Sleuth:
 
    [http://localhost:8000/](http://localhost:8000/)
 
-5. **Follow tutorial** (Recommended)
+5. **Change the configuration** (Optional)
+   
+   When starting up the system, you can change any of the system parameters detailed [here](dev/configuration.md) to suit your needs.
+   
+   As an example, if you would like to use the system with text data in Romanian, rather than the default setting of English, you can do so by entering the following command:
+   
+   ```text
+   python -m label_sleuth.start_label_sleuth --language ROMANIAN
+   ```
+
+
+7. **Follow tutorial** (Recommended)
 
    Now that you have installed Label Sleuth, we strongly recommend following our step-by-step tutorial to get acquainted with the system.
 
@@ -84,7 +95,7 @@ Recommended procedure to install Label Sleuth:
 ::::
 
 :::{note}
-**Changing the project directory and port**
+**Customizing Label Sleuth**
 
 When starting up Label Sleuth, the project directory and port can be customized by appending to the startup command `python -m label_sleuth.start_label_sleuth` the following flags:
 - ```--output_path <your_path>```:
@@ -93,4 +104,11 @@ When starting up Label Sleuth, the project directory and port can be customized 
    - Set port to ```<port_number>``` (default is 8000)
 - ```--host <ip_or_name>```:
    - Set host to ```<ip_or_name>``` (default is localhost, use 0.0.0.0 to expose the service to external communication)
+
+In addition, all of the [configuration parameters](dev/configuration.md) can be modified when starting up the system, by passing the appropriate flag. For instance:
+- ```--language <LANGUAGE>```:
+   - Set the system to work with text data in one of the [currently supported languages](dev/languages.md).
+- ```--model_policy <MODEL_POLICY>```:
+   - Set the system to work with one of the [currently supported machine learning models](dev/model_training.md#model-policies).
+
 :::
