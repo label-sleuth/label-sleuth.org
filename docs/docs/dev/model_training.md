@@ -53,7 +53,8 @@ Label Sleuth currently includes implementations of the following machine learnin
 | `SVM_OVER_BOW` | Support Vector Machine over Bag-of-words | [scikit-learn](https://scikit-learn.org) implementation  | - |
 | `SVM_OVER_WORD_EMBEDDINGS` | Support Vector Machine over [word embeddings*](word_embeddings) | - | - |
 | `SVM_ENSEMBLE` | Ensemble of `SVM_OVER_BOW` and `SVM_OVER_WORD_EMBEDDINGS` | - | - |
-| `HF_BERT` | BERT ([Devlin et al. 2018](https://arxiv.org/abs/1810.04805)) | Pytorch implementation using the [Hugging Face Transformers](https://github.com/huggingface/transformers) library | GPU _(recommended)_ |
+| `HF_BERT` | BERT ([Devlin et al. 2018](https://arxiv.org/abs/1810.04805)) | Pytorch implementation using the [Hugging Face Transformers](https://github.com/huggingface/transformers) library | GPU _(recommended)_ 
+| `HF_XLM_ROBERTA` | XLM-R ([Conneau et al., 2019](https://arxiv.org/abs/1911.02116)) | Pytorch implementation using the [Hugging Face Transformers](https://github.com/huggingface/transformers) library | GPU _(recommended)_ 
 
 Within the codebase, the list of supported models can be found in Label Sleuth's [model catalog](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/models/core/catalog.py). Note that some model may have special hardware requirements to perform as expected (e.g., they require the presence of a GPU).
 
@@ -64,14 +65,15 @@ Within the codebase, the list of supported models can be found in Label Sleuth's
 
 The model architecture that is trained in each iteration is prescribed by the employed _model policy_. In its most basic form, a model policy is _static_, resulting in the system always using the same model for every iteration. However, model policies can also be _dynamic_, allowing the system to switch between different types of models depending on the iteration. For instance, one can create a model policy instructing Label Sleuth to use a light and fast to train model (such as SVM) for the first few iterations and then switch to more complex and slower to train model (such as BERT) for later iterations. Label Sleuth currently supports the following model policies: 
 
-| Model policy | Model type | Description |
-|---|---|---|
-| `STATIC_NB_BOW` | Static | Use the `NB_OVER_BOW` model in every iteration |
-| `STATIC_NB_WORD_EMBEDDINGS` | Static | Use the `NB_OVER_WORD_EMBEDDINGS` model in every iteration |
-| `STATIC_SVM_BOW` | Static | Use the `SVM_OVER_BOW` model in every iteration |
-| `STATIC_SVM_WORD_EMBEDDINGS` | Static | Use the `SVM_OVER_WORD_EMBEDDINGS` model in every iteration |
-| `STATIC_SVM_ENSEMBLE`  <br /><defvalue>default</defvalue> | Static | Use the `SVM_ENSEMBLE` model in every iteration |
-| `STATIC_HF_BERT` | Static | Use the `HF_BERT` in every iteration |
+| Model policy | Model type | Description | Supported languages |
+|---|---|---|---|
+| `STATIC_NB_BOW` | Static | Use the `NB_OVER_BOW` model in every iteration | [All languages](languages.md) |
+| `STATIC_NB_WORD_EMBEDDINGS` | Static | Use the `NB_OVER_WORD_EMBEDDINGS` model in every iteration | [All languages](languages.md) |
+| `STATIC_SVM_BOW` | Static | Use the `SVM_OVER_BOW` model in every iteration | [All languages](languages.md) |
+| `STATIC_SVM_WORD_EMBEDDINGS` | Static | Use the `SVM_OVER_WORD_EMBEDDINGS` model in every iteration | [All languages](languages.md) |
+| `STATIC_SVM_ENSEMBLE`  <br /><defvalue>default</defvalue> | Static | Use the `SVM_ENSEMBLE` model in every iteration | [All languages](languages.md) |
+| `STATIC_HF_BERT` | Static | Use the `HF_BERT` model in every iteration | English |
+| `STATIC_HF_XLM_ROBERTA` | Static | Use the `HF_XLM_ROBERTA` model in every iteration | [All languages](languages.md) |
 
 Within the codebase, the list of available model policies can be found [here](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/models/core/model_policies.py). The model policy can be configured by setting the `model_policy` parameter in the system's [configuration file](configuration.md).
 
