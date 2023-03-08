@@ -12,6 +12,13 @@ A custom configuration file can be applied by passing the `--config_path` parame
  python -m label_sleuth.start_label_sleuth --config_path <path_to_my_configuration_json>
 ```
 
+Alternatively, it is possible to override specific configuration parameters at startup by appending them to the "start_label_sleuth" command. For example, to set up the system to work with text data in Arabic, one can set the system language by using the following command:
+
+```
+ python -m label_sleuth.start_label_sleuth --language ARABIC
+```
+
+
 ## Parameters
 
 The following parameters can be set in the configuration file:
@@ -25,7 +32,7 @@ The following parameters can be set in the configuration file:
 | `active_learning_strategy`        | Strategy to be used from [ActiveLearningCatalog](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/active_learning/core/catalog.py). An [ActiveLearner](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/active_learning/core/active_learning_api.py) module implements the strategy for recommending the next elements to be labeled by the user, aiming to increase the efficiency of the annotation process. <br /> <br /> _See also:_ The [active learning](active_learning.md) documentation. |
 | `precision_evaluation_size`       | Sample size to be used for estimating the precision of the current model when the precision evaluation function is invoked. <br /><br /> _Defaults to_ `20`. |
 | `apply_labels_to_duplicate_texts` | Specifies how to treat elements with identical texts. If `true`, assigning a label to an element will also assign the same label to other elements which share the exact same text; if `false`, the label will only be assigned to the specific element labeled by the user. <br /><br /> _Defaults to_ `true`. |
-| `language`                        | Specifies the chosen system-wide language. This determines some language-specific resources that will be used by models and helper functions (e.g., stop words). The list of supported languages can be found at the very end of [languages.py](https://github.com/label-sleuth/label-sleuth/blob/main/label_sleuth/models/core/languages.py). We welcome contributions of additional languages. <br /><br /> _Defaults to_ `ENGLISH`. |
+| `language`                        | Specifies the chosen system-wide language. This determines some language-specific resources that will be used by models and helper functions (e.g., stop words). The list of supported languages can be found [here](languages.md). We welcome contributions of additional languages. <br /><br /> _Defaults to_ `ENGLISH`. |
 | `login_required`                  | Specifies whether or not using the system will require user authentication. If `true`, the configuration file must also include a `users` parameter. <br /><br /> _Defaults to_ `false`. |
 | `users`                           | Only relevant if `login_required` is `true`. Specifies the pre-defined login information in the following format: <pre>"users":[<br>&nbsp;{<br>&nbsp;&nbsp;&nbsp;"username": "<predefined_username1>",<br>&nbsp;&nbsp;&nbsp;"token":"<randomly_generated_token1>",<br>&nbsp;&nbsp;&nbsp;"password":"<predefined_user1_password>"<br>&nbsp;}<br>] </pre> * The list of usernames is static and currently all users have access to all the workspaces in the system. |
 | `main_panel_elements_per_page` | Number of elements per page in the main panel, i.e., document view. <br /><br /> _Defaults to_ `500`. |  
