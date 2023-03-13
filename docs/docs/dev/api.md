@@ -97,6 +97,60 @@ Stream of a csv file
 }
 ```
 
+### Delete dataset
+
+Delete dataset with specified name.
+
+:::{warning}
+This endpoint permanently deletes the given dataset. If the dataset is used by one or more workspaces, those will be deleted too, along with all the categories, user labels and models. The deletion _cannot_ be reversed.
+:::
+
+---
+
+<span class="request_type">DELETE</span> ```/datasets/<dataset_name>```
+
+---
+
+**Example request:**
+
+```
+Empty
+```
+
+**Example response:**
+
+
+```json
+{
+   "deleted_dataset": "my_dataset", 
+   "deleted_workspace_ids": ["my_workspace1", "my_workspace2"]
+}
+```
+
+### Get list of workspaces using dataset
+
+Get IDs of all the workspaces that use the given dataset.
+
+---
+
+<span class="request_type">GET</span> ```/datasets/<dataset_name>/used_by```
+
+---
+
+**Example request:**
+
+```
+Empty
+```
+
+**Example response:**
+
+```json
+{
+   "used_by": ["my_workspace1", "my_workspace2"]
+}
+```
+
 ### Get list of datasets
 
 Get IDs of all existing datasets.
