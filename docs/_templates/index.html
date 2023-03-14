@@ -381,6 +381,57 @@ async function asyncCall() {
 
 <a href="#" class="top">Back to Top &#8593;</a>
 
+<div class="container-fluid">
+   <div class="container" style="padding-top: 50px; padding-bottom: 20px;">
+      <div class="row">
+         <div class="card-deck" style="margin-left: auto; margin-right: auto; width: 80%;">
+            <div>
+               <img style="width: 148px" src="_static/images/homepage/logo_black_invert.svg" alt="Label Sleuth">
+            </div>
+            <div style="width: 231px; margin-left: 59px;">
+               <p style="font-weight: 400; font-size: 14px; line-height: 18px">Label Sleuth is an open source project initiated by IBM Research in collaboration with leading universities</p>
+               <a href="https://github.com/label-sleuth/label-sleuth">
+                  <img src="_static/images/homepage/ibm_research.svg" alt="IBM Research">
+                </a>
+                <footer class="bd-footer" style="border: none; background-color: #ffffff; padding-top: 22px; padding-bottom: 20px; padding-left: 0px; padding-right: 0px; font-size: 14px; font-weight: 300; font-color: #525252; white-space: nowrap; line-height: 18.2px">
+                <!--  <div class="bd-footer__inner container"> -->
+                     {% for footer_item in theme_footer_items %}
+                     <div class="footer-item" style="text-align: left">
+                        {% include footer_item %}
+                     </div>
+                     {% endfor %}
+                  <!--</div> -->
+               </footer>
+            </div>
+            <div class="card homepage-use-case-card" style="margin-left: 77px">
+               <p style="font-weight: 500; font-size: 14px; line-height: 18px">Learn</p>
+               <p style="font-weight: 400; font-size: 14px; line-height: 30px">
+                  <a href="docs/installation.html">Installation</a><br />
+                  <a href="docs/tutorial.html">Tutorial</a><br />
+                  <a href="docs/index.html">Documentation</a>
+               </p>
+            </div>
+            <div class="card homepage-use-case-card">
+               <p style="font-weight: 500; font-size: 14px; line-height: 18px">Community</p>
+               <p style="font-weight: 400; font-size: 14px; line-height: 30px">
+                  <a href="community.html">Resources</a>
+               </p>
+            </div>
+            <div class="card homepage-use-case-card">
+               <p style="font-weight: 500; font-size: 14px; line-height: 18px">Support</p>
+               <p style="font-weight: 400; font-size: 14px; line-height: 30px">
+                  <a href="https://github.com/label-sleuth/label-sleuth">GitHub</a><br />
+                  <a href="https://join.slack.com/t/labelsleuth/shared_invite/zt-1j5tpz1jl-W~UaNEKmK0RtzK~lI3Wkxg">Slack</a><br />
+                  <a href="https://www.label-sleuth.org/docs/faq.html">FAQ</a>
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<!--
 <div class="container about-project-container">
 <div class="row about-project-text">
    <div class="col text-center">
@@ -401,4 +452,5 @@ async function asyncCall() {
       {% endfor %}
    </div>
 </footer>
+-->
 {%- endblock %}
