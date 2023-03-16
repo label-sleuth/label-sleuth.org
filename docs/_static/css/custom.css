@@ -10,6 +10,28 @@
   --pst-font-family-monospace: 'IBM Plex Mono';
 }
 
+/* Fixes for scrollbar styling; can be removed when we upgrade to at least v0.10.0 of the pydata-sphinx-theme */
+body::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+}
+
+body:hover::-webkit-scrollbar-thumb {
+  background: var(--pst-color-text-muted);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--pst-color-text-muted);
+}
+
+body:not(:hover)::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
 html[data-theme="light"] {
   --pst-color-primary: #008D36;
   scroll-behavior: smooth;
