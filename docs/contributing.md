@@ -100,8 +100,28 @@ git pull origin main
 git checkout -b {your-branch-name}
 ```
 
+### 5. Update your branch
 
-### 5. Build and start the development environment
+When working on a branch, it is possible that extra functionality has been added to the
+main branch of the repository, which means that your fork is outdated. In order to update your branch run:
+
+```sh
+git pull --rebase upstream main
+```
+
+This command will apply all the commits that are on upstream/main but not on your local branch.
+Adding the `--rebase` flag lets the commit history remain clean (i.e., without merge commits). The downside
+of rebasing is that it will change the hash id of your own commits, which means that, in order to update
+your fork on Github, you will have to do a forced push:
+
+```sh
+git push --force-with-lease origin {your-branch-name}
+```
+
+_Note: `--force-with-lease` is used here instead of `--force` to ensure that, if new commits have been added
+to your remote branch (e.g., if you are working on the same branch with someone else) the push command will fail._
+
+### 6. Build and start the development environment
 
 From the root directory of your fork, run:
 
@@ -125,7 +145,7 @@ npm start
 
 The last version of the frontend is statically served by the backend, so if you are not making any frontend contributions, the frontend-related commands above are not required.
 
-### 6. Test the application
+### 7. Test the application
 
 To test the backend, run:
 
@@ -139,7 +159,7 @@ To test the frontend, run:
 npm start --prefix frontend
 ```
 
-### 6. Create a Pull Request
+### 8. Create a Pull Request
 
 We use [GitHub pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) to accept contributions. Once submitted, the pull request will be reviewed by the community as explained below.
 
