@@ -119,7 +119,7 @@ git push --force-with-lease origin {your-branch-name}
 ```
 
 _Note: `--force-with-lease` is used here instead of `--force` to ensure that, if new commits have been added
-to your remote branch (i.e. you are working on the same branch with someone else) the push command will fail._
+to your remote branch (e.g., if you are working on the same branch with someone else) the push command will fail._
 
 ### 6. Build and start the development environment
 
