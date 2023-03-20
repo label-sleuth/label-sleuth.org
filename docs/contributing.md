@@ -112,7 +112,7 @@ git pull --rebase upstream main
 This command will apply all the commits that are on upstream/main but not on your local branch.
 Adding the `--rebase` flag lets the commit history remain clean (i.e., without merge commits). The downside
 of rebasing is that it will change the hash id of your own commits, which means that, in order to update
-your fork on Github, you'll have to do a forced push:
+your fork on Github, you will have to do a forced push:
 
 ```sh
 git push --force-with-lease origin {your-branch-name}
