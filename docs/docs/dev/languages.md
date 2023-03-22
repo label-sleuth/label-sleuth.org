@@ -1,4 +1,4 @@
-# Language support
+# Language Support
 
 Currently, Label Sleuth can work with text data in the following languages:
 - `ENGLISH` <br /><defvalue>default</defvalue>
