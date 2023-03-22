@@ -15,7 +15,7 @@ To start up the system with your chosen language, use the following command:
 Note that not every machine learning model is compatible with every language. For model-language compatibility, see [here](model_training.md#model-policies).
 
 
-### Adding support for a new language
+## Adding support for a new language
 
 The system can easily be extended to support additional languages, and we encourage developers who are fluent in additional languages to contribute them to Label Sleuth.
 
@@ -56,4 +56,6 @@ To support a new language, follow the steps below:
 
     All done! As specified on the top of this page, you can now start up Label Sleuth to use your chosen language, with `python -m label_sleuth.start_label_sleuth --language <YOUR_LANGUAGE>` (It may take a little longer to start up the system for the first time, as the system downloads the necessary files for this newly-added language).
     
-    Once Label Sleuth has started up using the chosen language, you can load documents in this language and work with the system as usual. Be sure to [open a pull request](https://github.com/label-sleuth/label-sleuth) so that fellow language speakers could use it!
+    Once Label Sleuth has started up using the chosen language, you can load documents in this language and work with the system as usual. Try out the system in the new language for a few model training iterations to make sure that the language extension works and the system can learn a model in the new language.
+    
+    Be sure to [open a pull request](https://github.com/label-sleuth/label-sleuth) so that fellow language speakers could use it!
