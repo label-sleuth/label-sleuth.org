@@ -15,7 +15,7 @@ A custom configuration file can be applied by passing the `--config_path` parame
 Alternatively, it is possible to override specific configuration parameters at startup by appending them to the "start_label_sleuth" command. For example, to set up the system to work with text data in Arabic, one can set the system language by using the following command:
 
 ```
- python -m label_sleuth.start_label_sleuth --language ARABIC
+ python -m label_sleuth.start_label_sleuth --language Arabic
 ```
 
 
