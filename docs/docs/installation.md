@@ -68,7 +68,7 @@ Recommended procedure to install Label Sleuth:
    As an example, if you would like to use the system with text data in Romanian, rather than the default setting of English, you can do so by entering the following command:
    
    ```text
-   python -m label_sleuth.start_label_sleuth --language ROMANIAN
+   python -m label_sleuth.start_label_sleuth --language Romanian
    ```
 
 
