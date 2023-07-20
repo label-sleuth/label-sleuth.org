@@ -17,6 +17,7 @@ Label Sleuth starts a new model training iteration whenever the following two co
 |   Condition&nbsp;on | Description | Default |
 |---|---|---|
 | **Number of positive labels** | The user has to provide a minimum number of positive labels. The threshold of required positive labels can be configured by setting the value of the `first_model_positive_threshold` parameter in the system's [configuration file](configuration.md). | 20 |
+| **Number of negative labels** | The user has to provide a minimum number of negative labels. The threshold of required negative labels can be configured by setting the value of the `first_model_negative_threshold` parameter in the system's [configuration file](configuration.md). | 0 |
 | **Number of label changes** | The user has to change a minimum number of labels since the last model training iteration (unless it is the first iteration). A change can be assigning a label (positive or negative) to an element, or changing an existing label. The threshold of required label changes can be configured by setting the value of the `changed_element_threshold` parameter in the system's [configuration file](configuration.md). | 20 |
 
 ## Training set selection
