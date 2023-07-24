@@ -38,3 +38,8 @@ The following parameters can be set in the configuration file:
 | `users`                           | Only relevant if `login_required` is `true`. Specifies the pre-defined login information in the following format: <pre>"users":[<br>&nbsp;{<br>&nbsp;&nbsp;&nbsp;"username": "<predefined_username1>",<br>&nbsp;&nbsp;&nbsp;"token":"<randomly_generated_token1>",<br>&nbsp;&nbsp;&nbsp;"password":"<predefined_user1_password>"<br>&nbsp;}<br>] </pre> * The list of usernames is static and currently all users have access to all the workspaces in the system. |
 | `main_panel_elements_per_page` | Number of elements per page in the main panel, i.e., document view. <br /><br /> _Defaults to_ `500`. |  
 | `sidebar_panel_elements_per_page` | Number of elements per page in the sidebar panels that use pagination. <br /><br /> _Defaults to_ `50`. |
+| `snippet_max_token_length` | Max number of tokens after which a text snippet shown on the right panels is cut off.<br /><br /> _Defaults to_ `100`. |
+| `right_to_left` | If `true` the text on the UI starts from the right of the page and continues to the left. <br /><br /> _Defaults to_ `false`. |
+| `max_dataset_length` |  The number of rows limit of the csv files. <br /><br /> _Defaults to_ `10000000`. |
+| `max_document_name_length` |  The max number of chars of document names. <br /><br /> _Defaults to_ `60`. |
+| `cpu_workers` | The max number of CPUs to use for running jobs.  <br /><br /> _Defaults to_ `100`. |
