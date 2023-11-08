@@ -188,7 +188,7 @@ Endpoints related to workspace. Note that each workspace is associated with a pa
 
 ### Create workspace
 
-Create new workspace. The request should include the ID of the new workspace and the ID of the dataset that will be used to populate the workspace.
+Create new workspace. The request should include the name of the new workspace, the ID of the dataset that will be used to populate the workspace and the mode of the workspace (`Binary` or `MultiClass`).
 
 ---
 
@@ -201,7 +201,8 @@ Create new workspace. The request should include the ID of the new workspace and
 ```json
 {
    "workspace_id": "my_workspace",
-   "dataset_id": "my_dataset"
+   "dataset_id": "my_dataset",
+   "workspace_type": "Binary"
 }
 ```
 
@@ -258,22 +259,26 @@ Get IDs of all existing workspaces.
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
 **Example response:**
 
-
 ```json
 {   
    "workspaces": [
-      "workspace1",
-      "workspace2"
+      {
+            "id": "workspace1",
+            "mode": "Binary"
+      },
+      {
+         "id": "workspace2",
+         "mode": "MultiClass"
+      }
    ]
 }
 ```
-
 
 ### Get workspace info
 
@@ -307,27 +312,29 @@ Empty
 }
 ```
 
-
 ## Category Management
 
-Endpoints related to categories. A category is defined in the context of a particular workspace. As a user works on the system, all labels, classification models etc. are associated with a specific category.
+Endpoints related to categories. A category is defined in the context of a particular workspace.
 
 ### Create category
 
-Create new category within a specified workspace. The request should include the name and the description of the new category.
+Create new category within a specified workspace. The request body should include the name, the description and the color (_only for multiclass workspaces_) of the new category. As part of the response, the backend will return the id of the created category.
+
+_Note: the backend expects a color to be provided as a string. The available colors are managed by the frontend and can be found [here](https://github.com/label-sleuth/label-sleuth/blob/2bb13a44d025a9f2583003e3d9552faa6fce47f7/frontend/src/utils/utils.ts#L430)._
 
 ---
 
 <span class="request_type">POST</span> ```/workspace/<workspace_id>/category```
 
 ---
-
+::::{tab-set}
+:::{tab-item} Binary mode
 **Example request:**
 
 ```json
 {
    "category_name": "my_category",
-   "category_description": "my_description"
+   "category_description": "my_description",
 }
 ```
 
@@ -337,17 +344,45 @@ Create new category within a specified workspace. The request should include the
 {
    "category_description": "my_description",
    "category_name": "my_category",
-   "category_id": "0"
+   "category_id": "0",
 }
 ```
+
+:::
+:::{tab-item} Multiclass mode
+**Example request:**
+
+```json
+{
+   "category_name": "my_category",
+   "category_description": "my_description",
+   "category_color": "green"
+}
+```
+
+**Example response:**
+
+```json
+{
+   "category_description": "my_description",
+   "category_name": "my_category",
+   "category_id": "0",
+   "category_color": "green"
+}
+```
+
+:::
+::::
 
 ### Delete category
 
 Delete category with specified name.
 
 :::{warning}
-This endpoint permanently deletes the category along with all data associated with it, including user labels and models. The deletion _cannot_ be reversed.
+This endpoint permanently deletes the category along with all data associated with it, including user labels and models (_if it belongs to a binary workspace_). The deletion _cannot_ be reversed.
 :::
+
+If the category belongs to a multiclass workspace, until a new model is trained the model predictions for the deleted category will still be displayed with the string `(deleted)` appended to its name.
 
 ---
 
@@ -357,7 +392,7 @@ This endpoint permanently deletes the category along with all data associated wi
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -372,7 +407,7 @@ Empty
 
 ### Get list of categories
 
-Get all categories that exist in the selected workspace.
+Get all categories that exist in the selected workspace. In multiclass workspaces, the reponse list items have two additional attributes: `category_color` and `deleted`.
 
 ---
 
@@ -380,9 +415,12 @@ Get all categories that exist in the selected workspace.
 
 ---
 
+::::{tab-set}
+:::{tab-item} Binary mode
+
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -394,16 +432,52 @@ Empty
       {
          "category_description": "",
          "category_name": "category1",
-         "category_id": "0"
+         "category_id": "0",
       },
       {
          "category_description": "",
          "category_name": "category2",
-         "category_id": "1"
+         "category_id": "1",
       }
    ]
 }
 ```
+
+:::
+
+:::{tab-item} Multiclass mode
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+   "categories": [
+      {
+         "category_description": "",
+         "category_name": "category1",
+         "category_id": "0",
+         "color": "amber",
+         "deleted": true,
+      },
+      {
+         "category_description": "",
+         "category_name": "category2",
+         "category_id": "1",
+         "color": "amber",
+         "deleted": false,
+      }
+   ]
+}
+```
+
+:::
+::::
 
 ## Label Management
 
@@ -411,21 +485,27 @@ Endpoints related to user-provided labels.
 
 ### Set element label
 
-Update the label of a selected element. This endpoint either sets or removes the label for a given element, depending on the `value` field. If `value == 'none'`, the element's label will be removed. Otherwise, the element will be assigned a bolean label depending on the string value ("true" -> True and "false" -> False. The `update_counter` determines whether the label changes will be reflected in the label change counters of the selected category (which may trigger the training of a new model). The parameter should be set to True, except for when labeling elements for precision evaluation.
+Update the label of a selected element. This endpoint either sets or removes the label for a given element.
 
----
+- In binary workspaces, the `binary_label` is set to the `category_id`. If `binary_label == 'none'`, the element's label will be removed. Otherwise, the element will be assigned a boolean label depending on the string value ("true" -> True and "false" -> False).
+- In multiclass workspaces, the category to label is the one specified in the `category_id` parameter. If `category_id == 'none'`, the element's label will be removed.
 
-<span class="request_type">PUT</span> ```/workspace/<workspace_id>/element/<element_id>?category_id=<category_id>```
+The `update_counter` determines whether the label changes will be reflected in the label change counters of the selected category (which may trigger the training of a new model). The parameter should be set to True, except for when labeling elements for evaluation. `iteration` refers to the model's version, while `source` is the panel where the element was labeled ([see available sources](https://github.com/label-sleuth/label-sleuth/blob/9561c9e7131da07c1978294a3633d42ac7eab473/frontend/src/const.ts#L115)).  
 
----
+<span class="request_type">PUT</span> ```/workspace/<workspace_id>/element/<element_id>?category_id=<category_id>&mode=<mode>```
+
+::::{tab-set}
+:::{tab-item} Binary mode
 
 **Example request:**
 
 ```json
 {
    "category_id": "1",
-   "value": "true",
-   "update_counter": true
+   "binary_label": "true",
+   "update_counter": true,
+   "iteration": 0,
+   "source": "label_next"
 }
 ```
 
@@ -451,27 +531,71 @@ Update the label of a selected element. This endpoint either sets or removes the
 }
 ```
 
-### Get positive labeled elements
-
-Get all elements for selected category that have been assigned a positive label by the user.
-
----
-
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/positive_elements?category_id=<category_id>```
-
----
+:::
+:::{tab-item} Multiclass mode
 
 **Example request:**
 
-```
-Empty
+```json
+{
+   "category_id": "1",
+   "update_counter": true,
+   "iteration": 0,
+   "source": "label_next"
+}
 ```
 
 **Example response:**
 
 ```json
 {
-   "positive_elements": [
+   "category_id": "1",
+   "element": {
+      "begin": 866,
+      "docid": "isear_dev-0",
+      "end": 1002,
+      "id": "isear_dev-0-7",
+      "model_predictions": 1,
+      "text": "When I got home I found that the electrical supply had been disconnected despite my having paid ZESCO the full bill a few  days earlier.",
+      "user_labels": 1
+   },
+   "workspace_id": "another_ws"
+}
+```
+
+:::
+::::
+
+### Get labeled elements by value
+
+Get user labeled elements. The `value` indicates the label type, which is `true` or `false` in binary workspaces and a category id in multiclass workspaces. `mode` can be either `Binary` or `MultiClass`. The following optional parameters may be provided as part of the request: The number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). If not provided, the following default values are used: `start_idx = 0` and `size = 100`. In binary workspaces, the `category_id` specifies the selected selected category.
+
+---
+
+::::{tab-set}
+:::{tab-item} Binary mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/get_labeled_elements_by_value?category_id=<category_id>&value=<value>&start_index=<start_index>&size=<size>&mode=<mode>```
+
+---
+
+**Example request:**
+
+```json
+{
+   "category_id": "1",
+   "value": "true",
+   "update_counter": true,
+   "start_index": 0,
+   "size": 100
+}
+```
+
+**Example response:**
+
+```json
+{
+   "elements": [
       {
          "begin": 367,
          "docid": "isear_dev-0",
@@ -500,16 +624,66 @@ Empty
             "2": "true"
          }
       }
-  ]
+  ],
+  "hit_count": 2
 }
 ```
+
+:::
+:::{tab-item} Multiclass mode
+
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/get_labeled_elements_by_value?value=<value>&start_index=<start_index>&size=<size>&mode=<mode>```
+
+---
+
+**Example request:**
+
+```json
+{
+   "value": 1,
+   "update_counter": true,
+   "start_index": 0,
+   "size": 100
+}
+```
+
+**Example response:**
+
+```json
+{
+   "elements": [
+      {
+         "begin": 367,
+         "docid": "isear_dev-0",
+         "end": 473,
+         "id": "isear_dev-0-3",
+         "model_predictions": 1,
+         "text": "When I realized that I had been wrong about a person close to me, because of pre-set ideas and prejudices.",
+         "user_labels": 2
+      },
+      {
+         "begin": 603,
+         "docid": "isear_dev-0",
+         "end": 803,
+         "id": "isear_dev-0-5",
+         "model_predictions": 1,
+         "text": "I feared that I would not be able to hand in the book-report on time as I had started working very late.  The book was difficult to read and my teacher did not accept my work as it was handed in late.",
+         "user_labels": 1
+      }
+  ],
+  "hit_count": 2
+}
+```
+
+:::
+::::
 
 ### Import labels
 
 Upload a csv file and add its contents as user labels in the selected workspace. The input file may contain labels for more than one category.
 
-The uploaded csv file must adhere to the following format: It must include 'text', 'category_name' and 'label' columns, and may optionally include a 'document_id' column.
-If document IDs are provided AND `app.config["CONFIGURATION"].apply_labels_to_duplicate_texts` is False, these labels will be assigned only to elements in the specified documents. Otherwise, labels are assigned to all elements matching the given texts.
+The uploaded csv file must adhere to the following format: It must include ‘text’, ‘category_name’ and ‘label’ columns, and may optionally include a `document_id` column. If document IDs are provided AND `app.config["CONFIGURATION"].apply_labels_to_duplicate_texts` is False, these labels will be assigned only to elements in the specified documents. Otherwise, labels are assigned to all elements matching the given texts.
 
 ---
 
@@ -519,13 +693,13 @@ If document IDs are provided AND `app.config["CONFIGURATION"].apply_labels_to_du
 
 **Example request:**
 
-```
+```text
 Stream of a csv file
 ```
 
 **Example response:**
 
-```
+```json
 {
     "categories": [
         {
@@ -551,20 +725,19 @@ Download all user labels from the selected workspace as a csv file. Each row in 
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
 **Example response:**
 
-```
+```text
 Stream of a csv file
 ```
 
-
 ## Document \& Element Management
 
-Endpoints related to documents and elements. These endpoints are called in the contect of a particular workspace and optionally a category. Thus, they may return not just document and element information from the dataset, but also category labels, model predictions etc. that are associated with a particular document/element.
+Endpoints related to documents and elements. These endpoints are called in the context of a particular workspace and optionally a category. Thus, they may return not just document and element information from the dataset, but also category labels, model predictions etc. that are associated with a particular document/element.
 
 ### Get document URIs
 
@@ -578,7 +751,7 @@ Get IDs of all documents in the dataset associated with the selected workspace.
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -599,7 +772,10 @@ Empty
 
 ### Get document elements
 
-Get all elements in selected document. Note: The `category_id` is optional.
+Get all elements in selected document. On binary workspaces, the `category_id` is optional. Providing it will make user labels and model predictions to be included. On multiclass workspaces, the `category_id` is not required.
+
+::::{tab-set}
+:::{tab-item} Binary mode
 
 ---
 
@@ -609,7 +785,7 @@ Get all elements in selected document. Note: The `category_id` is optional.
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -648,20 +824,18 @@ Empty
 }
 ```
 
-### Get document positive predictions
-
-Get elements in the selected document that received a positive prediction from the relevant classification model (i.e., the latest trained model for the category specified in the request). The following optional parameters may be provided as part of the request: The index number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). If not provided, the following default values are used: `start_idx = 0` and `size = 100`.
-
+:::
+:::{tab-item} Multiclass mode
 
 ---
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/document/<document_id>/positive_predictions?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/document/<document_id>```
 
 ---
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -675,54 +849,51 @@ Empty
          "docid": "isear_dev-3 Unicorn",
          "end": 37,
          "id": "isear_dev-3 Unicorn-0",
-         "model_predictions": {
-                "1": "true"
-         },
+         "model_predictions": 1,
          "text": "Startups worth more than 1b unicorn3 ",
-         "user_labels": {
-            "1": "true"
-         }
+         "user_labels": 1
       },
       {
          "begin": 38,
          "docid": "isear_dev-3 Unicorn",
          "end": 67,
          "id": "isear_dev-3 Unicorn-1",
-         "model_predictions": {
-            "1": "true"
-         },
+         "model_predictions": 1,
          "text": "another sentence of unicorn3 ",
-         "user_labels": {
-            "1": "true"
-         }
+         "user_labels": 1
       }
    ]
 }
 ```
 
-### Get workspace positive predictions
+:::
+::::
 
-Get elements in the selected workspace that received a positive prediction from the relevant classification model (i.e., the latest trained model for the category specified in the request). The following optional parameters may be provided as part of the request: The index number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). If not provided, the following default values are used: `start_idx = 0` and `size = 100`.
-The response contains the total number of positive predictions in `hit_count` and the fraction of the positively predicted elements in the entire dataset in `positive_fraction`
+### Get model predictions by value
 
+Get elements in the selected workspace that received a `value` prediction from the relevant classification model (i.e., the latest trained model). The `value` indicates the prediction type, which is `true` or `false` in binary workspaces and a category id in multiclass workspaces. `mode` can be either `Binary` or `MultiClass`. The following optional parameters may be provided as part of the request: The number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). If not provided, the following default values are used: `start_idx = 0` and `size = 100`. In binary workspaces, the `category_id` specifies the selected category.
 
----
+::::{tab-set}
+:::{tab-item} Binary mode
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/positive_predictions?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
-
----
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/elements_by_prediction?category_id=<category_id>&value=<value>&start_idx=<start_index>&size=<max_results>```
 
 **Example request:**
 
-```
-Empty
+```json
+{
+   "category_id": 1,
+   "value": "true",
+   "start_index": 0,
+   "size": 100
+}
 ```
 
 **Example response:**
 
 ```json
 {
-   "elements":[
+   "elements": [
       {
          "begin":0,
          "docid":"wiki_new-2011 Svalbard polar bear attack",
@@ -742,11 +913,11 @@ Empty
          "end":167,
          "id":"wiki_new-2011 Svalbard polar bear attack-1",
          "model_predictions":{
-            "0":"true"
+            "0": "true"
          },
          "text":"The 2011 Svalbard polar bear attack was an attack by a presumed starving polar bear on a group of university students and their guides.",
          "user_labels":{
-            "0":"true"
+            "0": "true"
          }
       }
    ],
@@ -755,19 +926,139 @@ Empty
 }
 ```
 
-### Query elements
+:::
+:::{tab-item} Multiclass mode
 
-Get elements matching a regular expression. The following parameters must be provided as part of the request: The query string `qry_string` containing the regular expression to search for, the number `qry_size` of elements to return, and the index `sample_start_idx` starting from which elements will be returned (used for pagination).
-
----
-
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/query?qry_string=<my_query>&category_id=<category_id>&sample_start_idx=<sample_start_index>&qry_size=<query_size>```
-
----
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/elements_by_prediction?value=<value>&start_idx=<start_index>&size=<size>```
 
 **Example request:**
 
+```json
+{   
+   "value": 1,
+   "start_index": 0,
+   "size": 100
+}
 ```
+
+**Example response:**
+
+```json
+{
+   "elements": [
+      {
+         "begin":0,
+         "docid":"wiki_new-2011 Svalbard polar bear attack",
+         "end":31,
+         "id":"wiki_new-2011 Svalbard polar bear attack-0",
+         "model_predictions": 0,
+         "text":"2011 Svalbard polar bear attack",
+         "user_labels": 1
+      },
+      {
+         "begin":32,
+         "docid":"wiki_new-2011 Svalbard polar bear attack",
+         "end":167,
+         "id":"wiki_new-2011 Svalbard polar bear attack-1",
+         "model_predictions": 0,
+         "text":"The 2011 Svalbard polar bear attack was an attack by a presumed starving polar bear on a group of university students and their guides.",
+         "user_labels": 0
+      }
+   ],
+   "hit_count": 54405,
+   "positive_fraction": 0.16464211787776445
+}
+```
+
+:::
+::::
+
+### Get prediction statistics
+
+Get the label count for each label value.
+
+::::{tab-set}
+
+:::{tab-item} Binary mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/prediction_stats/category_id=<category_id>```
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+    "false": {
+        "count": 47586,
+        "fraction": 0.7434034775273
+    },
+    "true": {
+        "count": 16425,
+        "fraction": 0.2565965224727
+    }
+}
+```
+
+:::
+
+:::{tab-item} Multiclass mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/prediction_stats```
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+    "0": {
+        "count": 1,
+        "fraction": 1.5622314914624048e-05
+    },
+    "1": {
+        "count": 1275,
+        "fraction": 0.01991845151614566
+    },
+    "2": {
+        "count": 5,
+        "fraction": 7.811157457312024e-05
+    },
+    "3": {
+        "count": 62728,
+        "fraction": 0.9799565699645374
+    },
+    "4": {
+        "count": 2,
+        "fraction": 3.1244629829248096
+    }
+}
+```
+
+:::
+::::
+
+### Query elements
+
+Get elements matching the query string `qry_string`. The following optional parameters may be provided as part of the request: the number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). In binary workspaces, the `category_id` specifies the selected category.
+
+::::{tab-set}
+
+:::{tab-item} Binary mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/query?qry_string=<qry_string>&category_id=<category_id>&start_idx=<start_idx>&size=<size>```
+
+**Example request:**
+
+```text
 Empty
 ```
 
@@ -802,23 +1093,66 @@ Empty
 }
 ```
 
-## Models \& Active Learning
+:::
 
-Endpoints related to models and active learning. 
+:::{tab-item} Multiclass mode
 
-### Get labeling status
-
-Get information about the labeling status for the selected category. The endpoint returns the number of user labels for the category, as well as a number between 0-100 that reflects when a new model will be trained.
-
----
-
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/status?category_id=<category_id>```
-
----
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/query?qry_string=<qry_string>&start_idx=<start_idx>&size=<size>```
 
 **Example request:**
 
+```text
+Empty
 ```
+
+**Example response:**
+
+```json
+{
+   "hit_count": 4,
+   "hit_count_unique": 4,
+   "elements": [
+      {
+         "begin": 474,
+         "docid": "isear_dev-0",
+         "end": 602,
+         "id": "isear_dev-0-4",
+         "model_predictions": null,
+         "text": "The sadness came to me when I heard that my girlfriend whom I loved so much got married to another man before a rebuff from her.",
+         "user_labels": 2
+      },
+      {
+         "begin": 28094,
+         "docid": "isear_dev-0",
+         "end": 28158,
+         "id": "isear_dev-0-235",
+         "model_predictions": null,
+         "text": "Sadness, no, I felt something much stronger when my father died.",
+         "user_labels": null
+      }
+   ] 
+}
+```
+
+:::
+::::
+
+## Models \& Active Learning
+
+Endpoints related to models and active learning.
+
+### Get labeling status
+
+Get information about the labeling status. This endpoint returns the number of user labels per label type in the `labeling_counts` field, which are `true` and `false` in binary workspaces and the category ids in multiclass workspaces. A number between 0-100 that reflects when a new model will be trained is included in the response too. The `labeling_counts` may contain weak labels count too.
+
+::::{tab-set}
+:::{tab-item} Binary mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/status?category_id=<category_id>```
+
+**Example request:**
+
+```text
 Empty
 ```
 
@@ -830,22 +1164,50 @@ Empty
       "false": 2,
       "true": 15
    },
-   "notifications": [],
    "progress": {
       "all": 60
    }
 }
 ```
 
+:::
+:::{tab-item} Multiclass mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/status```
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+   "labeling_counts": {
+      "0": 8,
+      "1": 2,
+      "2": 7
+   },
+   "progress": {
+      "all": 60
+   }
+}
+
+```
+
+:::
+::::
+
 ### Get all models for category
 
-Get information about all the iteration flows for the selected category and their current status.
+Get information about all the iteration flows. On binary workspaces model are specific to a category, hence the `category_id` query param must be provided.
 
----
+::::{tab-set}
+:::{tab-item} Binary mode
 
 <span class="request_type">GET</span> ```/workspace/<workspace_id>/models?category_id=<category_id>```
-
----
 
 **Example request:**
 
@@ -896,19 +1258,98 @@ Empty
 }
 ```
 
-### Get elements to label
+:::
+:::{tab-item} Multiclass mode
 
-Get elements to label. If at least one Iteration has completed for the selected category, the endpoint returns a list of elements that the active learning module recommends that the user labels next. The following optional parameters may be provided as part of the request: The index number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). If not provided, the following default values are used: `start_idx = 0` and `size = 100`.
-
----
-
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/active_learning?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
-
----
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/models```
 
 **Example request:**
 
 ```
+Empty
+```
+
+**Example response:**
+
+```json
+{
+    "iterations": [
+        {
+            "creation_epoch": 1699454085.17256,
+            "iteration": 0,
+            "iteration_status": "READY",
+            "model_metadata": {
+                "train_counts": {
+                    "0": 3,
+                    "1": 2,
+                    "2": 2
+                }
+            },
+            "model_status": "READY",
+            "model_type": "MulticlassSVM_Ensemble",
+            "prediction_stats": {
+                "0": {
+                    "count": 18891,
+                    "fraction": 0.2951211510521629
+                },
+                "1": {
+                    "count": 35136,
+                    "fraction": 0.5489056568402306
+                },
+                "2": {
+                    "count": 9984,
+                    "fraction": 0.15597319210760652
+                }
+            }
+        },
+        {
+            "changed_fraction": 0.38518379653497054,
+            "creation_epoch": 1699454119.195123,
+            "iteration": 1,
+            "iteration_status": "READY",
+            "model_metadata": {
+                "train_counts": {
+                    "0": 6,
+                    "1": 3,
+                    "2": 4
+                }
+            },
+            "model_status": "READY",
+            "model_type": "MulticlassSVM_Ensemble",
+            "prediction_stats": {
+                "0": {
+                    "count": 28443,
+                    "fraction": 0.44434550311665183
+                },
+                "1": {
+                    "count": 19096,
+                    "fraction": 0.29832372560966086
+                },
+                "2": {
+                    "count": 16472,
+                    "fraction": 0.2573307712736873
+                }
+            }
+        }
+    ]
+}
+```
+
+:::
+::::
+
+### Get elements to label
+
+Get elements to label. If at least one iteration has completed, the endpoint returns a list of elements that the active learning module recommends that the user label next. The following optional parameters may be provided as part of the request: The number `size` of elements to return and the index `start_idx` starting from which elements will be returned (used for pagination). If not provided, the following default values are used: `start_idx = 0` and `size = 100`. In binary workspaces, the `category_id` specifies the selected category.
+
+::::{tab-set}
+:::{tab-item} Binary mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/active_learning?category_id=<category_id>&start_idx=<start_index>&size=<max_results>```
+
+**Example request:**
+
+```text
 Empty
 ```
 
@@ -943,9 +1384,54 @@ Empty
 }
 ```
 
+:::
+:::{tab-item} Multiclass mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/active_learning?start_idx=<start_index>&size=<max_results>```
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+   "elements": [
+      {
+         "begin": 44784,
+         "docid": "isear_dev-0",
+         "end": 44857,
+         "id": "isear_dev-0-387",
+         "model_predictions": 0,
+         "text": "When I heard that my step-mother had treated my mother in a wrong manner.",
+         "user_labels": null
+      },
+      {
+         "begin": 75744,
+         "docid": "isear_dev-0",
+         "end": 75761,
+         "id": "isear_dev-0-668",
+         "model_predictions": 0,
+         "text": "During a meeting.",
+         "user_labels": null
+      }
+   ]
+}
+```
+
+:::
+::::
+
 ### Force train for category
 
 Manually trigger a new iteration flow.
+
+
+::::{tab-set}
+:::{tab-item} Binary mode
 
 ---
 
@@ -955,72 +1441,139 @@ Manually trigger a new iteration flow.
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
 **Example response:**
 
-```
+```json
 {
     "labeling_counts": {
         "false": 1485,
         "true": 542
-    },
-    "model_id": "SVM_BOW_1c7ff1f6-fdf8-11ec-8a70-acde48001122,SVM_GloVe_1c8044da-fdf8-11ec-8a70-acde48001122"
+    }
 }
 ```
+
+:::
+:::{tab-item} Multiclass mode
+
+---
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/force_train```
+
+---
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+   "labeling_counts": {
+      "0": 8,
+      "1": 2,
+      "2": 7
+   }
+}
+```
+
+:::
+::::
 
 ### Export predictions
 
-Download the predictions of the model learned during iteration `iteration_index` for category `category_id`, as a csv file.
+Download the predictions of the model learned during iteration `iteration_index`, as a csv file. In binary workspaces, the `category_id` specifies the selected category. `mode` can be either `Binary` or `MultiClass`.
 
----
+::::{tab-set}
+:::{tab-item} Binary mode
 
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_predictions?category_id=<category_id>&iteration_index=<iteration_index>```
-
----
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_predictions?category_id=<category_id>&iteration_index=<iteration_index>&mode=<mode>```
 
 **Example request:**
 
-```
-Empty
-```
-
-**Example response:**
-
-```
+```json
 {
-    "labeling_counts": {
-        "false": 1485,
-        "true": 542
-    },
-    "model_id": "SVM_BOW_1c7ff1f6-fdf8-11ec-8a70-acde48001122,SVM_GloVe_1c8044da-fdf8-11ec-8a70-acde48001122"
+   "category_id": 0,
+   "mode": "Binary"
 }
 ```
 
+**Example response:**
 
-### Export model
+```json
+Stream of a csv file
+```
 
-Download the trained model files for the given category and iteration index. If the iteration is not provided, the model from the latest iteration is exported. In order for this to work, the ModelType curently in use must implement the ModelAPI.export_model() method.  
+:::
+:::{tab-item} Multiclass mode
 
----
-
-<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_model?category_id=<category_id>&iteration_index=<iteration_number>```
-
----
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_predictions?iteration_index=<iteration_index>&mode=<mode>```
 
 **Example request:**
 
+```json
+{
+   "mode": "MultiClass"
+}
 ```
+
+**Example response:**
+
+```json
+Stream of a csv file
+```
+
+:::
+::::
+
+### Export model
+
+
+
+Download the trained model files for the given iteration index. If the iteration is not provided, the model from the latest iteration is exported. In order for this to work, the ModelType curently in use must implement the `ModelAPI.export_model()` method. In binary workspaces, the `category_id` specifies the selected category.
+
+::::{tab-set}
+:::{tab-item} Binary mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_model?category_id=<category_id>&iteration_index=<iteration_number>```
+
+**Example request:**
+
+```text
 Empty
 ```
 
 **Example response:**
 
-```
+```text
 Stream of ZIP file
 ```
+
+:::
+:::{tab-item} Multiclass mode
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/export_model?iteration_index=<iteration_number>```
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```text
+Stream of ZIP file
+```
+
+:::
+::::
 
 ## Model Evaluation
 
@@ -1028,8 +1581,7 @@ Endpoints related to evaluation of a model.
 
 ### Get elements for precision evaluation
 
-Get a sample of elements that are predicted as positive for the category by the latest model. This sample can be
-used to evaluate the precision of the model predictions: the user should label this sample of elements. After they are labeled, an invocation of the ['Run precision evaluation'](#run-precision-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the precision of the latest model.
+Get a sample of elements that are predicted as positive for the category by the latest model. This sample can be used to evaluate the precision of the model predictions: the user should label this sample of elements. After they are labeled, an invocation of the ['Run precision evaluation'](#run-precision-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the precision of the latest model. This endpoint can be used only in binary workspaces.
 
 ---
 
@@ -1076,7 +1628,7 @@ Empty
 
 ### Run precision evaluation
 
-Run precision evaluation.
+Run precision evaluation. This endpoint can be used only in binary workspaces.
 
 ---
 
@@ -1086,7 +1638,7 @@ Run precision evaluation.
 
 **Example request:**
 
-```
+```json
 {
   "ids": [
     "wiki_animals_2000_pages-Chestnut_headed bee_eater-15",
@@ -1102,7 +1654,7 @@ Run precision evaluation.
 
 **Example response:**
 
-```
+```json
 {
     "score": 0.98
 }
@@ -1110,7 +1662,7 @@ Run precision evaluation.
 
 ### Cancel precision evaluation
 
-Cancel precision evaluation.
+Cancel precision evaluation. This endpoint can be used only in binary workspaces.
 
 ---
 
@@ -1120,7 +1672,7 @@ Cancel precision evaluation.
 
 **Example request:**
 
-```
+```json
 {
     "changed_elements_count": 20
 }
@@ -1128,12 +1680,115 @@ Cancel precision evaluation.
 
 **Example response:**
 
-```
+```json
 {
     "canceled": "OK"
 }
 ```
 
+### Get elements for accuracy evaluation
+
+Get a sample of predicted elements. This sample can be
+used to evaluate the accuracy of the model predictions: the user should label this sample of elements. After they are labeled, an invocation of the ['Run accuracy evaluation'](#run-accuracy-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the accuracy of the latest model. This endpoint can be used only in multiclass workspaces.
+
+---
+
+<span class="request_type">GET</span> ```/workspace/<workspace_id>/accuracy_evaluation_elements```
+
+---
+
+**Example request:**
+
+```text
+Empty
+```
+
+**Example response:**
+
+```json
+{
+   "elements": [
+      {
+         "begin": 53760,
+         "docid": "isear_dev-0",
+         "end": 53797,
+         "id": "isear_dev-0-471",
+         "model_predictions": 1,
+         "text": "Boyfriend \"chatting up\" another girl.",
+         "user_labels": null
+      },
+      {
+         "begin": 30939,
+         "docid": "isear_dev-0",
+         "end": 31101,
+         "id": "isear_dev-0-260",
+         "model_predictions": 1,
+         "text": "My elder brother had been expelled from college and he was so frustated that he attempted suicide - he drank bottle fragments.  I was very sad when I learnt this.",
+         "user_labels": null
+      }
+   ]
+}
+```
+
+### Run accuracy evaluation
+
+Run accuracy evaluation. This endpoint can be used only in multiclass workspaces.
+
+---
+
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/accuracyn_evaluation_elements```
+
+---
+
+**Example request:**
+
+```json
+{
+  "ids": [
+    "wiki_animals_2000_pages-Chestnut_headed bee_eater-15",
+    "wiki_animals_2000_pages-Hairy_eared cerrado mouse-22",
+    "wiki_animals_2000_pages-Spectacled bear-106",
+    "wiki_animals_2000_pages-Scimitar oryx-152",
+    "wiki_animals_2000_pages-Red_headed trogon-34"
+  ],
+  "iteration": 1,
+  "changed_elements_count": 4
+}
+```
+
+**Example response:**
+
+```json
+{
+    "score": 0.98
+}
+```
+
+### Cancel accuracy evaluation
+
+Cancel accuracy evaluation. This endpoint can be used only in multiclass workspaces.
+
+---
+
+<span class="request_type">POST</span> ```/workspace/<workspace_id>/cancel_accuracy_evaluation```
+
+---
+
+**Example request:**
+
+```json
+{
+    "changed_elements_count": 20
+}
+```
+
+**Example response:**
+
+```json
+{
+    "canceled": "OK"
+}
+```
 
 ## Label Quality Reports
 
@@ -1141,7 +1796,9 @@ Endpoints related to label quality reports. These endpoints return labeled eleme
 
 ### Get label and model disagreements
 
-Get all labeled elements where the predictions of the latest model for the category differ from the label provided by the user.
+Get all labeled elements where the predictions of the latest model for the category differ from the label provided by the user. 
+
+_Note: At the moment, this endpoint is only available in binary workspaces._
 
 ---
 
@@ -1151,7 +1808,7 @@ Get all labeled elements where the predictions of the latest model for the categ
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -1196,6 +1853,8 @@ Get elements where the user label might be incorrect, based on an analysis of al
 
 The current implementation relies on cross validation: Several models are trained on different parts of the labeled data; labels are suspected as incorrect if a model's prediction on a left-out element disagrees with the user label for that element.
 
+_Note: At the moment, this endpoint is only available in binary workspaces._
+
 ---
 
 <span class="request_type">GET</span> ```/workspace/<workspace_id>/suspicious_elements?category_id=<category_id>```
@@ -1204,7 +1863,7 @@ The current implementation relies on cross validation: Several models are traine
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -1252,6 +1911,8 @@ element given a positive label and an element given a negative label by the user
 
 The current implementation relies on distances between text embeddings to identify the opposite-label elements that are similar to each other. In addition, for each pair the endpoint returns a list of unique tokens for each element, i.e. tokens that do not appear in the other element in the pair. This can be used to visualize the similarities/differences between the two texts.
 
+_Note: At the moment, this endpoint is only available in binary workspaces._
+
 ---
 
 <span class="request_type">GET</span> ```/workspace/<workspace_id>/contradiction_elements?category_id=<category_id>```
@@ -1260,7 +1921,7 @@ The current implementation relies on distances between text embeddings to identi
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
