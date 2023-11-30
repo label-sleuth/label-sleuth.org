@@ -1689,7 +1689,7 @@ Cancel precision evaluation. This endpoint can be used only in binary workspaces
 ### Get elements for accuracy evaluation
 
 Get a sample of predicted elements. This sample can be
-used to evaluate the accuracy of the model predictions: the user should label this sample of elements. After they are labeled, an invocation of the ['Run accuracy evaluation'](#run-accuracy-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the accuracy of the latest model. This endpoint can be used only in multiclass workspaces.
+used to evaluate the accuracy of the model predictions: The user should label this sample of elements. After they are labeled, an invocation of the ['Run accuracy evaluation'](#run-accuracy-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the accuracy of the latest model. This endpoint can be used only in multiclass workspaces.
 
 ---
 
