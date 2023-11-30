@@ -488,7 +488,7 @@ Endpoints related to user-provided labels.
 Update the label of a selected element. This endpoint either sets or removes the label for a given element.
 
 - In binary workspaces, the value `binary_label` is set as the label of the element for the category with ID `category_id`. If `binary_label == 'none'`, the element's label will be removed. Otherwise, the element will be assigned a boolean label depending on the string value ("true" -> True and "false" -> False).
-- In multiclass workspaces, the category to label is the one specified in the `category_id` parameter. If `category_id == 'none'`, the element's label will be removed.
+- In multiclass workspaces, the category to assign as the element's label is the one specified in the `category_id` parameter. If `category_id == 'none'`, the element's label will be removed.
 
 The `update_counter` determines whether the label changes will be reflected in the label change counters of the selected category (which may trigger the training of a new model). The parameter should be set to True, except for when labeling elements for evaluation. `iteration` refers to the model's version, while `source` is the panel where the element was labeled ([see available sources](https://github.com/label-sleuth/label-sleuth/blob/9561c9e7131da07c1978294a3633d42ac7eab473/frontend/src/const.ts#L115)).  
 
