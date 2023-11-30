@@ -249,7 +249,7 @@ Empty
 
 ### Get list of workspaces
 
-Get IDs of all existing workspaces.
+Get IDs of all existing workspaces as well as their mode (`Binary` or `MultiClass`).
 
 ---
 
@@ -280,9 +280,9 @@ Empty
 }
 ```
 
-### Get workspace info
+### Get workspace details
 
-Get information for selected workspace.
+Get the details for the specified workspace.
 
 ---
 
@@ -292,7 +292,7 @@ Get information for selected workspace.
 
 **Example request:**
 
-```
+```text
 Empty
 ```
 
@@ -409,6 +409,8 @@ Empty
 
 Get all categories that exist in the selected workspace. In multiclass workspaces, the reponse list items have two additional attributes: `category_color` and `deleted`.
 
+_Note: The deleted categories are used to display model predictions until a new model is trained._
+
 ---
 
 <span class="request_type">GET</span> ```/workspace/<workspace_id>/categories```
@@ -469,7 +471,7 @@ Empty
          "category_description": "",
          "category_name": "category2",
          "category_id": "1",
-         "color": "amber",
+         "color": "green",
          "deleted": false,
       }
    ]
@@ -683,7 +685,7 @@ Get user labeled elements. The `value` indicates the label type, which is `true`
 
 Upload a csv file and add its contents as user labels in the selected workspace. The input file may contain labels for more than one category.
 
-The uploaded csv file must adhere to the following format: It must include ‘text’, ‘category_name’ and ‘label’ columns, and may optionally include a `document_id` column. If document IDs are provided AND `app.config["CONFIGURATION"].apply_labels_to_duplicate_texts` is False, these labels will be assigned only to elements in the specified documents. Otherwise, labels are assigned to all elements matching the given texts.
+The uploaded csv file must adhere to the following format: It must include ‘text’, ‘category_name’ and ‘label’ columns, and may optionally include a `document_id` column. If document IDs are provided AND `app.config["CONFIGURATION"].apply_labels_to_duplicate_texts` is `False`, these labels will be assigned only to elements in the specified documents. Otherwise, labels are assigned to all elements matching the given texts.
 
 ---
 
@@ -1143,7 +1145,7 @@ Endpoints related to models and active learning.
 
 ### Get labeling status
 
-Get information about the labeling status. This endpoint returns the number of user labels per label type in the `labeling_counts` field, which are `true` and `false` in binary workspaces and the category ids in multiclass workspaces. A number between 0-100 that reflects when a new model will be trained is included in the response too. The `labeling_counts` may contain weak labels count too.
+Get information about the labeling status. This endpoint returns the number of user labels per label type in the `labeling_counts` field, which are `true` and `false` in binary workspaces and the category ids in multiclass workspaces. A number between 0-100 that reflects when a new model will be trained is included in the response too. The `labeling_counts` may contain weak labels count aswell.
 
 ::::{tab-set}
 :::{tab-item} Binary mode
@@ -1506,7 +1508,7 @@ Download the predictions of the model learned during iteration `iteration_index`
 
 **Example response:**
 
-```json
+```text
 Stream of a csv file
 ```
 
@@ -1536,7 +1538,7 @@ Stream of a csv file
 
 
 
-Download the trained model files for the given iteration index. If the iteration is not provided, the model from the latest iteration is exported. In order for this to work, the ModelType curently in use must implement the `ModelAPI.export_model()` method. In binary workspaces, the `category_id` specifies the selected category.
+Download the trained model files for the given iteration index. If the iteration is not provided, the model from the latest iteration is exported. In order for this to work, the `ModelType` curently in use must implement the `ModelAPI.export_model()` method. In binary workspaces, the `category_id` specifies the selected category.
 
 ::::{tab-set}
 :::{tab-item} Binary mode
@@ -1796,7 +1798,7 @@ Endpoints related to label quality reports. These endpoints return labeled eleme
 
 ### Get label and model disagreements
 
-Get all labeled elements where the predictions of the latest model for the category differ from the label provided by the user. 
+Get all labeled elements where the predictions of the latest model for the category differ from the label provided by the user.
 
 _Note: At the moment, this endpoint is only available in binary workspaces._
 
