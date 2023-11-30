@@ -320,7 +320,7 @@ Endpoints related to categories. A category is defined in the context of a parti
 
 Create new category within a specified workspace. The request body should include the name, the description, and the color (_only for multiclass workspaces_) of the new category. As part of the response, the backend will return the id of the created category.
 
-_Note: the backend expects a color to be provided as a string. The available colors are managed by the frontend and can be found [here](https://github.com/label-sleuth/label-sleuth/blob/2bb13a44d025a9f2583003e3d9552faa6fce47f7/frontend/src/utils/utils.ts#L430)._
+_Note: The backend expects a color to be provided as a string. The available colors are managed by the frontend and can be found [here](https://github.com/label-sleuth/label-sleuth/blob/2bb13a44d025a9f2583003e3d9552faa6fce47f7/frontend/src/utils/utils.ts#L430)._
 
 ---
 
