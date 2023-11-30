@@ -1581,7 +1581,7 @@ Endpoints related to evaluation of a model.
 
 ### Get elements for precision evaluation
 
-Get a sample of elements that are predicted as positive for the category by the latest model. This sample can be used to evaluate the precision of the model predictions: the user should label this sample of elements. After they are labeled, an invocation of the ['Run precision evaluation'](#run-precision-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the precision of the latest model. This endpoint can be used only in binary workspaces.
+Get a sample of elements that are predicted as positive for the category by the latest model. This sample can be used to evaluate the precision of the model predictions: The user should label this sample of elements. After they are labeled, an invocation of the ['Run precision evaluation'](#run-precision-evaluation) endpoint will compare the user-provided labels to the model predictions to estimate the precision of the latest model. This endpoint can be used only in binary workspaces.
 
 ---
 
