@@ -270,7 +270,7 @@ Empty
    "workspaces": [
       {
          "id": "workspace1",
-            "mode": "Binary"
+         "mode": "Binary"
       },
       {
          "id": "workspace2",
