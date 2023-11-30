@@ -188,7 +188,7 @@ Endpoints related to workspace. Note that each workspace is associated with a pa
 
 ### Create workspace
 
-Create new workspace. The request should include the name of the new workspace, the ID of the dataset that will be used to populate the workspace and the mode of the workspace (`Binary` or `MultiClass`).
+Create new workspace. The request should include the name of the new workspace, the ID of the dataset that will be used to populate the workspace, and the mode of the workspace (`Binary` or `MultiClass`).
 
 ---
 
