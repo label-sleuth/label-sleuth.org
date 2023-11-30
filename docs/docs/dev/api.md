@@ -1525,7 +1525,7 @@ Stream of a csv file
 
 **Example response:**
 
-```json
+```text
 Stream of a csv file
 ```
 
