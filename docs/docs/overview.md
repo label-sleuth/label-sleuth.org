@@ -4,7 +4,10 @@ Label Sleuth [pronounced _label slooth_] is an open source **no-code system** fo
 
 Creating real-world NLP models traditionally requires a combination of two types of expertise - deep knowledge of the target domain, provided by domain experts, and machine learning knowledge, provided by NLP experts. Thus, domain experts willing to solve their text-related use cases depend on NLP experts to build the appropriate AI models. Label Sleuth comes to eliminate this dependency. With an intuitive UX, Label Sleuth escorts domain experts in the process of labeling the data and building NLP models tailored to their specific needs. As domain experts label examples within the system, machine learning models are being automatically trained in the background, make predictions on new examples, and provide suggestions for the users on the examples they should label next.
 
-#    How do I get started?
+Label Sleuth offers versatility by allowing users to work with different types of workspaces, including binary and/or multiclass options. Additionally, users can tailor their NLP use-cases to specific linguistic requirements by selecting from a vast array of languages, with support for over 150 languages.
+
+
+# How do I get started?
 
 Depending on your interests, see below for a set of recommended resources:
 
