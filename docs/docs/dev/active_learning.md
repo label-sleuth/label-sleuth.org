@@ -6,13 +6,29 @@ Label Sleuth guides the users through the labeling process by suggesting a ranke
 
 Label Sleuth currently supports the following active learning strategies:
 
+::::{tab-set}
+:::{tab-item} Binary mode
+
+The employed active learning strategy can be configured by setting the value of the `binary_flow.active_learning_strategy` parameter in the system's [configuration file](configuration.md).
+
 | Active learning strategy | Description |
 |---|---|
 | `RANDOM` | Randomly sample from unlabeled data (active learning baseline) |
 | `HARD_MINING` <br /><defvalue>default</defvalue> | Uncertainty sampling/least confidence ([Lewis and Gale 1994](https://arxiv.org/abs/cmp-lg/9407020)) |
 | `RETROSPECTIVE` | Select top scored instances by the model ([Ein-Dor et al. 2019](https://arxiv.org/abs/1911.10763)) |
+| `COMBINED_RETROSPECTIVE_HM` | a combination between the previous two strategies |
 
-The employed active learning strategy can be configured by setting the value of the `active_learning_strategy` parameter in the system's [configuration file](configuration.md).
+:::
+:::{tab-item} Multiclass mode
+
+The employed active learning strategy can be configured by setting the value of the `multiclass_flow.active_learning_strategy` parameter in the system's [configuration file](configuration.md).
+
+| Active learning strategy | Description |
+|---|---|
+| `MULTICLASS_ENTROPY` <br /><defvalue>default</defvalue>  | Uncertainty sampling/least confidence ([Lewis and Gale 1994](https://arxiv.org/abs/cmp-lg/9407020)) |
+
+:::
+::::
 
 ## Implement a new active learning strategy
 
