@@ -1,4 +1,3 @@
-Label Sleuth is an open source project initiated by IBM Research in collaboration with leading universities.
 As the Label Sleuth open source community, we welcome contributions from everyone, including but not limited to
 members of the open source, scientific, and industrial communities.
 
