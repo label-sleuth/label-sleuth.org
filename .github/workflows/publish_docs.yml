@@ -44,7 +44,7 @@ jobs:
       run: |
         tar --dereference --hard-dereference --exclude=.git -cvf artifact.tar -C _build/html .
     - name: 'Upload artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: github-pages
         path: docs/artifact.tar
