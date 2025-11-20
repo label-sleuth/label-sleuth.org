@@ -55,6 +55,6 @@ jobs:
     environment: github-pages
     steps:
     - name: Publish on GitHub pages
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
